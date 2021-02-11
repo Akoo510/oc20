@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import math, sys, os
 
 SIZE = 500, 500
 RED = (255, 0, 0)
@@ -15,7 +16,7 @@ WHITE = (255, 255, 255)
 pygame.init()
 screen = pygame.display.set_mode(SIZE)
 
-img0 = pygame.image.load(path)
+img0 = pygame.image.load('bird.png')
 img0.convert()
 
 rect0 = img0.get_rect()
@@ -23,6 +24,8 @@ pygame.draw.rect(img0, GREEN, rect0, 1)
 
 img = pygame.image.load('bird.png')
 img.convert()
+
+mouse = pygame.mouse.get_pos()
 
 center = 250, 250
 img = img0
@@ -39,13 +42,59 @@ while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
+        
         if event.type == KEYDOWN:
-            if event.key = K_r:
+            if event.key == K_r:
                 if event.mod and KMOD_SHIFT:
+                    angle -= 10
+                else:
+                    angle += 10
+                img = pygame.transform.rotozoom(img0, angle, scale)
+            elif event.key == K_s:
+                if event.mod and KMOD_SHIFT:
+                    scale /= 1.1
+                else:
+                    scale *= 1.1
+                img = pygame.transform.rotozoom(img0, angle, scale)
+            
+            elif event.key == K_o:
+                img = img0
+                angle = 0
+                scale = 1
+            
+            elif event.key == K_h:
+                img = pygame.transform.flip(img, True, False)
+                
+            elif event.key == K_v:
+                img = pygame.transform.flip(img, False, True)
+                
+            elif event.key == K_l:
+                img = pygame.transform.laplacian(img)
+                
+            elif event.key == K_2:
+                img = pygame.transform.scale2x(img)
+                
+            rect = img.get_rect()
+            rect.center = center
+                
+        elif event.type == MOUSEMOTION:
+                mouse = event.pos
+                x = mouse[0] - center[0]
+                y = mouse[1] - center[1]
+                d = math.sqrt(x ** 2 + y ** 2)
+                
+                angle = math.degrees(-math.atan2(y, x))
+                scale = abs(5 * d / SIZE[1])
+                img = pygame.transform.rotozoom(img0, angle, scale)
+                rect = img.get_rect()
+                rect.center = center
                     
     screen.fill(GRAY)
-    pygame.draw.rect(screen, RED, rect, 2)
     screen.blit(img, rect)
-    pygame.display.flip()
+    pygame.draw.rect(screen, RED, rect, 1)
+    pygame.draw.line(screen, GREEN, center, mouse, 1)
+    pygame.draw.circle(screen, RED, center, 6, 1)
+    pygame.draw.circle(screen, RED, mouse, 6, 1)
+    pygame.display.update()
     
 pygame.quit()
