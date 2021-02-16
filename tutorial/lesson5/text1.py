@@ -41,12 +41,9 @@ rect = img.get_rect()
 rect.topleft = (20, 20)
 cursor = Rect(rect.topright, (3, rect.height))
 
-img = font.render(text, True, RED)
-rect.size=img.get_size()
-cursor.topleft = rect.topright
-
 running = True
 background = GRAY
+
 while running:
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -59,14 +56,14 @@ while running:
                     
             else:
                 text += event.unicode
+            img = font.render(text, True, RED)
+            rect.size=img.get_size()
+            cursor.topleft = rect.topright
 
     screen.fill(background)
     screen.blit(img, rect)
     if time.time() % 1 > 0.5:
         pygame.draw.rect(screen, RED, cursor)
-    screen.blit(img, (20, 20))
-    screen.blit(img1, (20, 50))
-    screen.blit(img2, (20, 120))
     pygame.display.update()
 
 pygame.quit()
