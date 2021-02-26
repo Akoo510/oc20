@@ -83,7 +83,7 @@ while running:
         if 'Oui' == answer2:    
             if event.type == MOUSEBUTTONUP:
                 end = event.pos
-                if 'Oui' == answer3:     
+                if 'Oui' == answer3 and 'Non' == answer4:     
                     size1 = end[0] - start[0], end[1] - start[1]
                     rect = pygame.Rect(start, size1)
                     rect_list.append(rect)
@@ -115,7 +115,7 @@ while running:
         
         
     screen.fill(background)
-    if 'Oui' == answer2:    
+    if 'Oui' == answer2 and 'Non' == answer3:    
         if len(points)>1:
             rect = pygame.draw.lines(screen, RED, True, points, 3)
             pygame.draw.rect(screen, GREEN, rect, 1)
