@@ -1,4 +1,5 @@
 import pygame
+import math, sys, os
 from pygame.locals import *
 from rect import *
 
@@ -49,9 +50,22 @@ else:
     answer4 = 'Non'
 
 if 'Oui' == answer:
-    img = pygame.image.load("ball.gif")
+    img0 = pygame.image.load("ball.gif")
+    img0.convert()
+    rect0 = img0.get_rect()
+    pygame.draw.rect(img0, GREEN, rect0, 1)
+    
+    center = 640/2, 320/2
+    img = img0
     rect = img.get_rect()
-    speed = [1, 1]
+    rect.center = center
+    
+    angle = 0
+    scale = 1
+
+    mouse = pygame.mouse.get_pos()
+
+    
 
 background = GRAY
 screen = pygame.display.set_mode(size)
@@ -69,6 +83,57 @@ while running:
                 if event.key == K_ESCAPE:
                     if len(points) > 0:
                         points.pop()
+        
+        if 'Oui' == answer:
+          if event.type == KEYDOWN:  
+            if event.key == K_r:
+                if event.mod & KMOD_SHIFT:
+                    angle -= 10
+                else:
+                    angle += 10
+                img = pygame.transform.rotozoom(img0, angle, scale)
+
+            elif event.key == K_s:
+                if event.mod & KMOD_SHIFT:
+                    scale /= 1.1
+                else:
+                    scale *= 1.1
+                img = pygame.transform.rotozoom(img0, angle, scale)
+
+            elif event.key == K_o:
+                img = img0
+                angle = 0
+                scale = 1
+
+            elif event.key == K_h:
+                img = pygame.transform.flip(img, True, False)
+            
+            elif event.key == K_v:
+                img = pygame.transform.flip(img, False, True)
+
+            elif event.key == K_l:
+                img = pygame.transform.laplacian(img)
+
+            elif event.key == K_2:
+                img = pygame.transform.scale2x(img)
+
+            rect = img.get_rect()
+            rect.center = center
+            
+        if 'Oui' == answer:
+            if event.type == MOUSEMOTION:
+                mouse = event.pos
+                x = mouse[0] - center[0]
+                y = mouse[1] - center[1]
+                d = math.sqrt(x ** 2 + y ** 2)
+
+                angle = math.degrees(-math.atan2(y, x))
+                scale = abs(5 * d / 240)
+                img = pygame.transform.rotozoom(img0, angle, scale)
+                rect = img.get_rect()
+                rect.center = center
+            
+        
         if 'Oui' == answer2:        
             if event.type == MOUSEBUTTONDOWN:
                 points.append(event.pos)
@@ -105,12 +170,12 @@ while running:
                     rect.move_ip(event.rel)    
     
     #Vitesse de l'image
-    if 'Oui' == answer:
-        rect = rect.move(speed)
-        if rect.left < 0 or rect.right > width:
-            speed[0] = -speed[0]
-        if rect.top < 0 or rect.bottom > height:
-            speed[1] = -speed[1]
+#     if 'Oui' == answer:
+#         rect = rect.move(speed)
+#         if rect.left < 0 or rect.right > width:
+#             speed[0] = -speed[0]
+#         if rect.top < 0 or rect.bottom > height:
+#             speed[1] = -speed[1]
 
         
         
@@ -125,8 +190,11 @@ while running:
         pygame.draw.rect(screen, RED, (start, size1), 1)
     #Dessiner un rectangle autour de l'image et la faire apparaître.        
     if 'Oui' == answer:
-        pygame.draw.rect(screen, RED, rect, 1)
         screen.blit(img, rect)
+        pygame.draw.rect(screen, RED, rect, 1)
+        pygame.draw.line(screen, GREEN, center, mouse, 1)
+        pygame.draw.circle(screen, RED, center, 6, 1)
+        pygame.draw.circle(screen, RED, mouse, 6, 1)   
     if 'Oui' == answer4:     
         pygame.draw.rect(screen, RED, rect)
         if moving:
