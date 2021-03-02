@@ -39,7 +39,7 @@ width1 = 1
 
 pygame.init()
 
-#Ici, nous avons la possibilité de charger une image ainsi que de lui attribuer une vitesse.
+#########################################################################
 
 answer = input('Voulez-vous utiliser un image ? (Oui/Non) : ')
 if 'Oui' != answer:
@@ -101,14 +101,16 @@ while running:
                 if event.key == K_ESCAPE:
                     if len(points) > 0:
                         points.pop()
+        
         if 'Oui' == answer3:
             if event.type == KEYDOWN:
-                if event.key == K_ALT+0:
-                    width1 = 0
-                elif event.key == K_ALT+1:
-                    width1 = 1
-                elif event.key == K_ALT+2:
-                    width1 = 3
+                if event.mod & KMOD_ALT:
+                    if event.key == K_0:
+                        width1 = 0
+                    elif event.key == K_1:
+                        width1 = 1
+                    elif event.key == K_2:
+                        width1 = 3
             
                 elif event.key == K_r:
                     color = RED
