@@ -21,7 +21,7 @@ MAGENTA = (255, 0, 255)
 key_dict = {K_k:BLACK, K_r:RED, K_g:GREEN, K_b:BLUE,
     K_y:YELLOW, K_n:CYAN, K_m:MAGENTA, K_w:WHITE, K_q:GRAY}
 
-size = 640, 320
+size = 1000, 600
 start = (0, 0)
 size1 = (0, 0)
 drawing = False
@@ -36,6 +36,7 @@ color = RED
 type_ ='r'
 shapes = []
 width1 = 1
+rectA = Rect(0, 5, 30, 30)
 
 pygame.init()
 
@@ -53,7 +54,7 @@ else:
     answer2 = 'Non'
     answer3 = 'Non'
     answer4 = 'Non'
-    
+        
 class Shape:
     def __init__(self, rect, color=RED, width1=1, type_ = 'r'):
         self.rect = rect
@@ -66,6 +67,7 @@ class Shape:
             pygame.draw.rect(screen, self.color, self.rect, self.width)
         elif self.type == 'e':
             pygame.draw.ellipse(screen, self.color, self.rect, self.width)
+            
 
 if 'Oui' == answer:
     img0 = pygame.image.load("ball.gif")
@@ -73,27 +75,42 @@ if 'Oui' == answer:
     rect0 = img0.get_rect()
     pygame.draw.rect(img0, GREEN, rect0, 1)
     
-    center = 640/2, 320/2
+    center = size[0]/2, size[1]/2
     img = img0
     rect = img.get_rect()
     rect.center = center
     
     angle = 0
     scale = 1
-
+    
     mouse = pygame.mouse.get_pos()
 
     
-
 background = GRAY
 screen = pygame.display.set_mode(size)
 running = True
+dessine_rectangle = False
 
 while running:
     for event in pygame.event.get():
         if event.type == QUIT:
-            running = False
-            
+            running = False    
+        Mx, My = pygame.mouse.get_pos()
+        if event.type == MOUSEBUTTONDOWN:
+            if 0 < Mx < 30 and 5 < My < 35:
+                dessine_rectangle = True
+            if not 0 < Mx < 30 and not 5 < My< 35:
+                dessine_rectangle = False
+            print(dessine_rectangle)
+            if 0 < Mx < 30 and 35 < My < 65:
+                dessine_cercle = True
+            if 0 < Mx < 30 and 65 < My < 95:
+                dessine_ligne = True
+            if 0 < Mx < 30 and 95 < My < 125:
+                dessine_cercle = True
+                
+                
+     
         if event.type == KEYDOWN:
             if event.key in key_dict:
                 background = key_dict[event.key]
@@ -232,6 +249,8 @@ while running:
         
         
     screen.fill(GRAY)
+    pygame.draw.rect(screen, BLACK, rectA, 2)
+    pygame.draw.rect(screen, BLACK, (0, 35, 30, 30), 2)
     if 'Oui' == answer3 and 'Non' == answer4:
         for s in shapes:
             s.draw()    
@@ -239,10 +258,7 @@ while running:
         if len(points)>1:
             rect = pygame.draw.lines(screen, RED, True, points, 3)
             pygame.draw.rect(screen, GREEN, rect, 1)
-#     if 'Oui' == answer3 and 'Non' == answer4:     
-#         for rect in rect_list:
-#             pygame.draw.rect(screen, RED, rect, 3)
-#         pygame.draw.rect(screen, RED, (start, size1), 1)
+
     #Dessiner un rectangle autour de l'image et la faire apparaître.        
     if 'Oui' == answer:
         screen.blit(img, rect)
