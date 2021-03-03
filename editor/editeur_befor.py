@@ -42,6 +42,18 @@ pygame.init()
 
 #########################################################################
 
+answer = input('Voulez-vous utiliser un image ? (Oui/Non) : ')
+if 'Oui' != answer:
+    answer2 = input('Voulez-vous créer des polygones / rectangles ? (Oui/Non) : ')
+    answer3 = input('Voulez-vous créer des rectangles / cercles / elipses ? (Oui/Non) : ')
+    if 'Oui' == answer3:
+        answer4 = input('Voulez-vous déplacer des rectangles ? (Oui/Non) : ')
+    else:
+        answer4 = 'Non'
+else:
+    answer2 = 'Non'
+    answer3 = 'Non'
+    answer4 = 'Non'
         
 class Shape:
     def __init__(self, rect, color=RED, width1=1, type_ = 'r'):
@@ -56,32 +68,28 @@ class Shape:
         elif self.type == 'e':
             pygame.draw.ellipse(screen, self.color, self.rect, self.width)
             
-#  sers pour l'image, à remettre dans boucle si possible
 
-# if 'Oui' == answer:
-#     img0 = pygame.image.load("ball.gif")
-#     img0.convert()
-#     rect0 = img0.get_rect()
-#     pygame.draw.rect(img0, GREEN, rect0, 1)
-#     
-#     center = size[0]/2, size[1]/2
-#     img = img0
-#     rect = img.get_rect()
-#     rect.center = center
-#     
-#     angle = 0
-#     scale = 1
-#     
-#     mouse = pygame.mouse.get_pos()
+if 'Oui' == answer:
+    img0 = pygame.image.load("ball.gif")
+    img0.convert()
+    rect0 = img0.get_rect()
+    pygame.draw.rect(img0, GREEN, rect0, 1)
+    
+    center = size[0]/2, size[1]/2
+    img = img0
+    rect = img.get_rect()
+    rect.center = center
+    
+    angle = 0
+    scale = 1
+    
+    mouse = pygame.mouse.get_pos()
 
     
 background = GRAY
 screen = pygame.display.set_mode(size)
 running = True
 dessine_rectangle = False
-dessine_cercle = False
-dessine_ligne = False
-bouge_forme = False
 
 while running:
     for event in pygame.event.get():
@@ -91,26 +99,15 @@ while running:
         if event.type == MOUSEBUTTONDOWN:
             if 0 < Mx < 30 and 5 < My < 35:
                 dessine_rectangle = True
-                dessine_cercle = False
-                dessine_ligne = False
-                bouge_forme = False
+            if not 0 < Mx < 30 and not 5 < My< 35:
+                dessine_rectangle = False
+            print(dessine_rectangle)
             if 0 < Mx < 30 and 35 < My < 65:
-                dessine_rectangle = False
                 dessine_cercle = True
-                dessine_ligne = False
-                bouge_forme = False
             if 0 < Mx < 30 and 65 < My < 95:
-                dessine_rectangle = False
-                dessine_cercle = False
                 dessine_ligne = True
-                bouge_forme = False
             if 0 < Mx < 30 and 95 < My < 125:
-                dessine_rectangle = False
-                dessine_cercle = False
-                dessine_ligne = False
-                bouge_forme = True
-            print('rect =', dessine_rectangle, 'cercle =', dessine_cercle, 'ligne=', dessine_ligne, 'forme =', bouge_forme)
-            print(Mx, My)
+                dessine_cercle = True
                 
                 
      
@@ -122,7 +119,7 @@ while running:
                     if len(points) > 0:
                         points.pop()
         
-        while dessine_rectangle or dessine_cercle:
+        if 'Oui' == answer3:
             if event.type == KEYDOWN:
                 if event.mod & KMOD_ALT:
                     if event.key == K_0:
@@ -161,84 +158,82 @@ while running:
                 size = end[0]-start[0], end[1]-start[1]
                 shapes[-1].rect.size = size
         
-# pour image, à revoir
+        if 'Oui' == answer:
+            if event.type == KEYDOWN:  
+                if event.key == K_a:
+                    if event.mod & KMOD_SHIFT:
+                        angle -= 10
+                    else:
+                        angle += 10
+                    img = pygame.transform.rotozoom(img0, angle, scale)
 
-#         if 'Oui' == answer:
-#             if event.type == KEYDOWN:  
-#                 if event.key == K_a:
-#                     if event.mod & KMOD_SHIFT:
-#                         angle -= 10
-#                     else:
-#                         angle += 10
-#                     img = pygame.transform.rotozoom(img0, angle, scale)
-# 
-#                 elif event.key == K_s:
-#                     if event.mod & KMOD_SHIFT:
-#                         scale /= 1.1
-#                     else:
-#                         scale *= 1.1
-#                     img = pygame.transform.rotozoom(img0, angle, scale)
-# 
-#                 elif event.key == K_o:
-#                     img = img0
-#                     angle = 0
-#                     scale = 1
-# 
-#                 elif event.key == K_h:
-#                     img = pygame.transform.flip(img, True, False)
-#             
-#                 elif event.key == K_v:
-#                     img = pygame.transform.flip(img, False, True)
-# 
-#                 elif event.key == K_l:
-#                     img = pygame.transform.laplacian(img)
-# 
-#                 elif event.key == K_2:
-#                     img = pygame.transform.scale2x(img)
-# 
-#                 rect = img.get_rect()
-#                 rect.center = center
-#             elif event.type == MOUSEBUTTONDOWN:
-#                 if rect.collidepoint(event.pos):
-#                     moving1 = True
-#             elif event.type == MOUSEBUTTONUP:
-#                 moving1 = False
-#             elif event.type == MOUSEMOTION and moving1:
-#                 rect.move_ip(event.rel)
-#              
-#         while dessine_rectangle or dessine_cercle:        
-#             if event.type == MOUSEBUTTONDOWN:
-#                 points.append(event.pos)
-#                 if 'Oui' == answer3:    
-#                     start = event.pos
-#                     size1 = 0, 0
-#                     drawing = True
-#                     if 'Oui' == answer4:    
-#                         if rect.collidepoint(event.pos):
-#                             moving = True
+                elif event.key == K_s:
+                    if event.mod & KMOD_SHIFT:
+                        scale /= 1.1
+                    else:
+                        scale *= 1.1
+                    img = pygame.transform.rotozoom(img0, angle, scale)
+
+                elif event.key == K_o:
+                    img = img0
+                    angle = 0
+                    scale = 1
+
+                elif event.key == K_h:
+                    img = pygame.transform.flip(img, True, False)
+            
+                elif event.key == K_v:
+                    img = pygame.transform.flip(img, False, True)
+
+                elif event.key == K_l:
+                    img = pygame.transform.laplacian(img)
+
+                elif event.key == K_2:
+                    img = pygame.transform.scale2x(img)
+
+                rect = img.get_rect()
+                rect.center = center
+            elif event.type == MOUSEBUTTONDOWN:
+                if rect.collidepoint(event.pos):
+                    moving1 = True
+            elif event.type == MOUSEBUTTONUP:
+                moving1 = False
+            elif event.type == MOUSEMOTION and moving1:
+                rect.move_ip(event.rel)
+             
+        if 'Oui' == answer2:        
+            if event.type == MOUSEBUTTONDOWN:
+                points.append(event.pos)
+                if 'Oui' == answer3:    
+                    start = event.pos
+                    size1 = 0, 0
+                    drawing = True
+                    if 'Oui' == answer4:    
+                        if rect.collidepoint(event.pos):
+                            moving = True
                         
         
-        while dessine_rectangle or dessine_cercle or bouge_forme:   
+        if 'Oui' == answer2:    
             if event.type == MOUSEBUTTONUP:
                 end = event.pos
-                while dessine_rectangle:   
+                if 'Oui' == answer3 and 'Non' == answer4:     
                     size1 = end[0] - start[0], end[1] - start[1]
                     rect = pygame.Rect(start, size1)
                     rect_list.append(rect)
                     drawing = False
-                while bouge_forme:
+                if 'Oui' == answer4:    
                     moving = False
                         
      
      # Si l'on veut dessiner des rectangles, remplacer le "moving" par "drawing"
-        while dessine_rectangle:
-            while bouge_forme:
+        if 'Oui' == answer2:    
+            if 'Oui' == answer3 and answer4 :
                 hat = moving
             else:
                 hat = drawing
             if event.type == MOUSEMOTION and hat:
                 points[-1] = event.pos
-                while bouge_forme:
+                if 'Oui' == answer3:     
                     end = event.pos
                     size1 = end[0] - start[0], end[1] - start[1]
                     rect.move_ip(event.rel)
@@ -256,26 +251,19 @@ while running:
     screen.fill(GRAY)
     pygame.draw.rect(screen, BLACK, rectA, 2)
     pygame.draw.rect(screen, BLACK, (0, 35, 30, 30), 2)
-    pygame.draw.rect(screen, BLACK, (0, 65, 30, 30), 2)
-    pygame.draw.rect(screen, BLACK, (0, 95, 30, 30), 2)
-    pygame.draw.rect(screen, BLACK, (0, 125, 30, 30), 2)
-    while dessine_rectangle:
-        pygame.draw.rect(screen, RED, rectA, 3)
-    while dessine_rectangle or dessine_cercle:
+    if 'Oui' == answer3 and 'Non' == answer4:
         for s in shapes:
             s.draw()    
-    while dessine_rectangle:
+    if 'Oui' == answer2 and 'Non' == answer3:    
         if len(points)>1:
             rect = pygame.draw.lines(screen, RED, True, points, 3)
             pygame.draw.rect(screen, GREEN, rect, 1)
 
     #Dessiner un rectangle autour de l'image et la faire apparaître.        
-#  image, à revoir
-
-#     if 'Oui' == answer:
-#         screen.blit(img, rect)
-#         pygame.draw.rect(screen, RED, rect, 1)  
-    while bouge_forme:     
+    if 'Oui' == answer:
+        screen.blit(img, rect)
+        pygame.draw.rect(screen, RED, rect, 1)  
+    if 'Oui' == answer4:     
         pygame.draw.rect(screen, RED, rect)
         if moving:
             pygame.draw.rect(screen, BLUE, rect, 4)
