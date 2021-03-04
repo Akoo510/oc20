@@ -36,13 +36,29 @@ color = RED
 type_ ='r'
 shapes = []
 width1 = 1
-rectA = Rect(0, 5, 30, 30)
+
 
 pygame.init()
 
 #########################################################################
 
+class Rectangle:
+    def __init__(self, x, y, w, h):
+        self.rect = pygame.Rect(x, y, w, h)
+        self.width = 2
+        self.color = BLACK
         
+    def draw(self):
+        pygame.draw.rect(screen, self.color, self.rect, self.width)
+        
+        
+objects = [
+    Rectangle(0, 5, 30, 30),
+    Rectangle(0, 35, 30, 30),
+    Rectangle(0, 65, 30, 30),
+    Rectangle(0, 95, 30, 30),
+    Rectangle(0, 125, 30, 30)]
+
 class Shape:
     def __init__(self, rect, color=RED, width1=1, type_ = 'r'):
         self.rect = rect
@@ -89,31 +105,11 @@ while running:
             running = False    
         Mx, My = pygame.mouse.get_pos()
         if event.type == MOUSEBUTTONDOWN:
-            if 0 < Mx < 30 and 5 < My < 35:
-                dessine_rectangle = True
-                dessine_cercle = False
-                dessine_ligne = False
-                bouge_forme = False
-            if 0 < Mx < 30 and 35 < My < 65:
-                dessine_rectangle = False
-                dessine_cercle = True
-                dessine_ligne = False
-                bouge_forme = False
-            if 0 < Mx < 30 and 65 < My < 95:
-                dessine_rectangle = False
-                dessine_cercle = False
-                dessine_ligne = True
-                bouge_forme = False
-            if 0 < Mx < 30 and 95 < My < 125:
-                dessine_rectangle = False
-                dessine_cercle = False
-                dessine_ligne = False
-                bouge_forme = True
-            print('rect =', dessine_rectangle, 'cercle =', dessine_cercle, 'ligne=', dessine_ligne, 'forme =', bouge_forme)
-            print(Mx, My)
+            for obj in objects:
+                if obj.rect.collidepoint(event.pos):
+                    print(obj)
+                    obj.width = 0
                 
-                
-     
         if event.type == KEYDOWN:
             if event.key in key_dict:
                 background = key_dict[event.key]
@@ -254,15 +250,13 @@ while running:
         
         
     screen.fill(GRAY)
-    pygame.draw.rect(screen, BLACK, rectA, 2)
-    pygame.draw.rect(screen, BLACK, (0, 35, 30, 30), 2)
-    pygame.draw.rect(screen, BLACK, (0, 65, 30, 30), 2)
-    pygame.draw.rect(screen, BLACK, (0, 95, 30, 30), 2)
-    pygame.draw.rect(screen, BLACK, (0, 125, 30, 30), 2)
+    
+    for obj in objects:
+        obj.draw()
+
     while dessine_rectangle:
         pygame.draw.rect(screen, RED, rectA, 3)
-    while dessine_rectangle or dessine_cercle:
-        for s in shapes:
+    for s in shapes:
             s.draw()    
     while dessine_rectangle:
         if len(points)>1:
