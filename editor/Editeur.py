@@ -90,6 +90,12 @@ class Shape:
 #     
 #     mouse = pygame.mouse.get_pos()
 
+move = pygame.image.load("move.png")
+move.convert_alpha()
+move = pygame.transform.scale(move, (25, 25))
+rect = move.get_rect()
+rect.center = 15, 110
+
     
 background = GRAY
 screen = pygame.display.set_mode(size)
@@ -103,13 +109,13 @@ while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False    
-        Mx, My = pygame.mouse.get_pos()
         if event.type == MOUSEBUTTONDOWN:
             for obj in objects:
                 if obj.rect.collidepoint(event.pos):
                     print(obj)
                     obj.width = 0
-                
+                    
+                    
         if event.type == KEYDOWN:
             if event.key in key_dict:
                 background = key_dict[event.key]
@@ -253,9 +259,13 @@ while running:
     
     for obj in objects:
         obj.draw()
+    pygame.draw.rect(screen, WHITE, (4, 10, 20, 20), 2)
+    pygame.draw.ellipse(screen, WHITE, (4, 40, 20, 20), 2)
+    pygame.draw.line(screen, WHITE, (4, 70), (24, 90), 2)
+    screen.blit(move, rect)
 
     while dessine_rectangle:
-        pygame.draw.rect(screen, RED, rectA, 3)
+        pygame.draw.rect(screen, RED, (50, 50, 30, 30), 3)
     for s in shapes:
             s.draw()    
     while dessine_rectangle:
