@@ -103,6 +103,8 @@ move = pygame.transform.scale(move, (45, 45))
 rect = move.get_rect()
 rect.center = 15, 140
 
+tool = 0
+
     
 background = GRAY
 screen = pygame.display.set_mode(size)
@@ -117,10 +119,17 @@ while running:
         if event.type == QUIT:
             running = False    
         if event.type == MOUSEBUTTONDOWN:
+            i = 0
             for obj in objects:
                 if obj.rect.collidepoint(event.pos):
                     print(obj)
                     obj.width = 0
+                    tool = i
+                else:
+                    if tool != i:
+                        obj.width = 2
+                i += 1
+            print('tool =', tool)
                     
                     
         if event.type == KEYDOWN:
