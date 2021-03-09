@@ -90,11 +90,18 @@ class Shape:
 #     
 #     mouse = pygame.mouse.get_pos()
 
-move = pygame.image.load("move.png")
+
+img1 = pygame.image.load("ball.gif")
+img1.convert()
+img1 = pygame.transform.scale(img1, (25, 25))
+rect1 = img1.get_rect()
+rect1.center = 15, 110
+
+move = pygame.image.load("move2.png")
 move.convert_alpha()
-move = pygame.transform.scale(move, (25, 25))
+move = pygame.transform.scale(move, (45, 45))
 rect = move.get_rect()
-rect.center = 15, 110
+rect.center = 15, 140
 
     
 background = GRAY
@@ -263,6 +270,7 @@ while running:
     pygame.draw.ellipse(screen, WHITE, (4, 40, 20, 20), 2)
     pygame.draw.line(screen, WHITE, (4, 70), (24, 90), 2)
     screen.blit(move, rect)
+    screen.blit(img1, rect1)
 
     while dessine_rectangle:
         pygame.draw.rect(screen, RED, (50, 50, 30, 30), 3)
