@@ -33,9 +33,12 @@ points = []
 width, height = size
 hat = drawing
 color = RED
-type_ ='r'
+tool = 0
+type_ = tool
 shapes = []
 width1 = 1
+
+
 
 
 pygame.init()
@@ -60,16 +63,16 @@ objects = [
     Rectangle(0, 125, 30, 30)]
 
 class Shape:
-    def __init__(self, rect, color=RED, width1=1, type_ = 'r'):
+    def __init__(self, rect, color=RED, width1=1, type_ = 0):
         self.rect = rect
         self.color = color
         self.width = width1
         self.type = type_
         
     def draw(self):
-        if self.type == 'r':
+        if tool == 0:
             pygame.draw.rect(screen, self.color, self.rect, self.width)
-        elif self.type == 'e':
+        elif tool == 1:
             pygame.draw.ellipse(screen, self.color, self.rect, self.width)
             
 #  sers pour l'image, à remettre dans boucle si possible
@@ -100,10 +103,10 @@ rect1.center = 15, 110
 move = pygame.image.load("move2.png")
 move.convert_alpha()
 move = pygame.transform.scale(move, (45, 45))
-rect = move.get_rect()
-rect.center = 15, 140
+rect2 = move.get_rect()
+rect2.center = 15, 140
 
-tool = 0
+# tool = 0
 
     
 background = GRAY
@@ -135,12 +138,11 @@ while running:
         if event.type == KEYDOWN:
             if event.key in key_dict:
                 background = key_dict[event.key]
-            if 'Oui' == answer2:   
-                if event.key == K_ESCAPE:
-                    if len(points) > 0:
-                        points.pop()
+            if event.key == K_BACKSPACE:
+                s.pop()
+            
         
-        while dessine_rectangle or dessine_cercle:
+        if tool == 1 or tool == 0:
             if event.type == KEYDOWN:
                 if event.mod & KMOD_ALT:
                     if event.key == K_0:
@@ -150,16 +152,18 @@ while running:
                     elif event.key == K_2:
                         width1 = 3
             
-                elif event.key == K_r:
+                if event.key == K_r:
                     color = RED
                 elif event.key == K_g:
                     color = GREEN
                 elif event.key == K_b:
                     color = BLUE
-                elif event.key == K_e:
-                    type_ = 'e'
-                elif event.key == K_f:
-                    type_ = 'r'
+                
+                if tool == 0:
+                    type_ = 0
+                if tool == 1:
+                    type_ = 1
+
                 
                 shapes[-1].width = width1
                 shapes[-1].color = color
@@ -236,10 +240,10 @@ while running:
 #                             moving = True
                         
         
-        while dessine_rectangle or dessine_cercle or bouge_forme:   
+        if tool == 0 or tool == 1 or bouge_forme:   
             if event.type == MOUSEBUTTONUP:
                 end = event.pos
-                while dessine_rectangle:   
+                if tool == 0:   
                     size1 = end[0] - start[0], end[1] - start[1]
                     rect = pygame.Rect(start, size1)
                     rect_list.append(rect)
@@ -249,17 +253,17 @@ while running:
                         
      
      # Si l'on veut dessiner des rectangles, remplacer le "moving" par "drawing"
-        while dessine_rectangle:
+        if tool == 0:
             while bouge_forme:
                 hat = moving
             else:
                 hat = drawing
-            if event.type == MOUSEMOTION and hat:
-                points[-1] = event.pos
-                while bouge_forme:
-                    end = event.pos
-                    size1 = end[0] - start[0], end[1] - start[1]
-                    rect.move_ip(event.rel)
+#             if event.type == MOUSEMOTION and hat:
+#                 points[-1] = event.pos
+#                 while bouge_forme:
+#                     end = event.pos
+#                     size1 = end[0] - start[0], end[1] - start[1]
+#                     rect.move_ip(event.rel)
     
     #Vitesse de l'image
 #     if 'Oui' == answer:
@@ -278,13 +282,11 @@ while running:
     pygame.draw.rect(screen, WHITE, (4, 10, 20, 20), 2)
     pygame.draw.ellipse(screen, WHITE, (4, 40, 20, 20), 2)
     pygame.draw.line(screen, WHITE, (4, 70), (24, 90), 2)
-    screen.blit(move, rect)
+    screen.blit(move, rect2)
     screen.blit(img1, rect1)
 
-    while dessine_rectangle:
-        pygame.draw.rect(screen, RED, (50, 50, 30, 30), 3)
     for s in shapes:
-            s.draw()    
+            s.draw()
     while dessine_rectangle:
         if len(points)>1:
             rect = pygame.draw.lines(screen, RED, True, points, 3)
