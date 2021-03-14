@@ -9,11 +9,9 @@ Le but de ce projet était de créer un éditeur graphique avec les notions vus 
 * Peut créer des lignes
 * Il est capable changer la couleur et l'épaisseur des rectangles/ellipses/cercles
 * Peut charger les images
-https://www.google.ch
-![cursed]
 
 ## Interface
-Capture d'àécran
+Capture d'écran
 
 ## Raccourcis claviers 
 L'éditeur graphique a des raccourcis pour :
@@ -24,5 +22,6 @@ L'éditeur graphique a des raccourcis pour :
 ## Manipultation avec la souris
 
 ## Conclusion
+
  
  
