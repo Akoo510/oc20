@@ -37,7 +37,8 @@ tool = 0
 type_ = tool
 shapes = []
 width1 = 1
-
+(Dx, Dy) = (0, 0)
+(Fx, Fy) = (0, 0)
 
 
 
@@ -63,18 +64,25 @@ objects = [
     Rectangle(0, 125, 30, 30)]
 
 class Shape:
-    def __init__(self, rect, color=RED, width1=1, type_ = 0):
+    def __init__(self, rect, color=RED, width1=1, type_ = 0, start_pos = (Dx, Dy), end_pos = (Fx, Fy)):
         self.rect = rect
         self.color = color
         self.width = width1
         self.type = type_
+        self.start_pos = (Dx, Dy)
+        self.end_pos = (Fx, Fy)
         
     def draw(self):
         if tool == 0:
             pygame.draw.rect(screen, self.color, self.rect, self.width)
         elif tool == 1:
             pygame.draw.ellipse(screen, self.color, self.rect, self.width)
-            
+        elif tool == 2:
+            pygame.draw.line(screen, self.color, self.start_pos, self.end_pos, self.width)
+
+class Image:
+    def __init__(self):
+        self.image = pygame.image.load("ball.gif")
 #  sers pour l'image, à remettre dans boucle si possible
 
 # if 'Oui' == answer:
@@ -105,8 +113,6 @@ move.convert_alpha()
 move = pygame.transform.scale(move, (45, 45))
 rect2 = move.get_rect()
 rect2.center = 15, 140
-
-# tool = 0
 
     
 background = GRAY
@@ -139,10 +145,11 @@ while running:
             if event.key in key_dict:
                 background = key_dict[event.key]
             if event.key == K_BACKSPACE:
-                s.pop()
+                Shape.pop()
+            
             
         
-        if tool == 1 or tool == 0:
+        if tool == 1 or tool == 0 or tool == 2:
             if event.type == KEYDOWN:
                 if event.mod & KMOD_ALT:
                     if event.key == K_0:
@@ -158,6 +165,18 @@ while running:
                     color = GREEN
                 elif event.key == K_b:
                     color = BLUE
+                elif event.key == K_k:
+                    color = BLACK
+                elif event.key == K_y:
+                    color = YELLOW
+                elif event.key == K_n:
+                    color = CYAN
+                elif event.key == K_m:
+                    color = MAGENTA
+                elif event.key == K_w:
+                    color = WHITE
+                elif event.key == K_q:
+                    color = GRAY
                 
                 if tool == 0:
                     type_ = 0
@@ -171,12 +190,14 @@ while running:
             
             elif event.type == MOUSEBUTTONDOWN:
                 start = event.pos
+                (Dx, Dy) = pygame.mouse.get_pos()
                 s = Shape(Rect(start, (0, 0)), color, width1)
                 shapes.append(s)
                 drawing = True
             
             elif event.type == MOUSEBUTTONUP:
                 drawing = False
+                (Fx, Fy) = pygame.mouse.get_pos()
 
             elif event.type == MOUSEMOTION and drawing:
                 end = event.pos
