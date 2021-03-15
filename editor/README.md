@@ -15,17 +15,19 @@ Le but de ce projet était de créer un éditeur graphique avec les notions vus 
 
 
 ## Raccourcis claviers 
-L'éditeur graphique a des raccourcis pour :
 
+L'éditeur graphique a des raccourcis pour :
 * la couleur : r = Rouge, g = Vert, b = Bleu, k = Noir, y = Jaune, n = Cyan, m = Magenta, w = Blanc, q = Gris
 * l'épaisseur : Alt + : 0, 1, 2, 3, 4
 * taille image : s = agrandir, Shift + s = rapetisser
 * rotation image : a = angle +10, Shift + a = angle -10
 * autre : h = retourne l'image horizontalement, v = verticalement, l = laplacian, 2 = double la taille de l'image, o = réinitialise l'image
 
-## Manipultation avec la souris
-
 ## Conclusion
+
+Le but a été atteint, engjëll a carry le game, et c tt calm
+Tom Jeannin + Engjëll Ismaili
+
 
  
  
