@@ -11,6 +11,7 @@ Le but de ce projet était de créer un éditeur graphique avec les notions vus 
 
 ## Interface
 ![Capture](https://user-images.githubusercontent.com/77661930/111196464-97fa2b80-85bd-11eb-89ec-71aaca3ae28c.JPG)
+![Capture2](https://user-images.githubusercontent.com/77661930/111196620-c972f700-85bd-11eb-8bb0-5baea5d4b7f0.JPG)
 
 
 ## Raccourcis claviers 
