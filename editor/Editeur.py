@@ -60,10 +60,11 @@ objects = [
     Rectangle(0, 5, 30, 30),
     Rectangle(0, 35, 30, 30),
     Rectangle(0, 65, 30, 30),
-    Rectangle(0, 95, 30, 30),
-    Rectangle(0, 125, 30, 30)]
+    Rectangle(0, 95, 30, 30)]
 
 class Shape:
+    
+    
     def __init__(self, rect, color=RED, width1=1, type_ = 0, start_pos = (Dx, Dy), end_pos = (Fx, Fy)):
         self.rect = rect
         self.color = color
@@ -71,14 +72,15 @@ class Shape:
         self.type = type_
         self.start_pos = (Dx, Dy)
         self.end_pos = (Fx, Fy)
+        self.tool = None
         
     def draw(self):
-        if tool == 0:
+        if self.tool == 0:
             pygame.draw.rect(screen, self.color, self.rect, self.width)
-        elif tool == 1:
+        elif self.tool == 1:
             pygame.draw.ellipse(screen, self.color, self.rect, self.width)
-        elif tool == 2:
-            pygame.draw.line(screen, self.color, self.start_pos, self.end_pos, self.width)
+        elif self.tool == 2:
+            pygame.draw.line(screen, self.color, self.start_pos, self.rect.bottomright, self.width)
 
 class Image:
     def __init__(self):
@@ -108,11 +110,7 @@ img1 = pygame.transform.scale(img1, (25, 25))
 rect1 = img1.get_rect()
 rect1.center = 15, 110
 
-move = pygame.image.load("move2.png")
-move.convert_alpha()
-move = pygame.transform.scale(move, (45, 45))
-rect2 = move.get_rect()
-rect2.center = 15, 140
+
 
     
 background = GRAY
@@ -145,7 +143,7 @@ while running:
             if event.key in key_dict:
                 background = key_dict[event.key]
             if event.key == K_BACKSPACE:
-                Shape.pop()
+                shapes.pop()
             
             
         
@@ -158,6 +156,10 @@ while running:
                         width1 = 1
                     elif event.key == K_2:
                         width1 = 3
+                    elif event.key == K_3:
+                        width1 = 5
+                    elif event.key == K_4:
+                        width1 = 7
             
                 if event.key == K_r:
                     color = RED
@@ -192,6 +194,7 @@ while running:
                 start = event.pos
                 (Dx, Dy) = pygame.mouse.get_pos()
                 s = Shape(Rect(start, (0, 0)), color, width1)
+                s.tool = tool
                 shapes.append(s)
                 drawing = True
             
@@ -285,14 +288,7 @@ while running:
 #                     end = event.pos
 #                     size1 = end[0] - start[0], end[1] - start[1]
 #                     rect.move_ip(event.rel)
-    
-    #Vitesse de l'image
-#     if 'Oui' == answer:
-#         rect = rect.move(speed)
-#         if rect.left < 0 or rect.right > width:
-#             speed[0] = -speed[0]
-#         if rect.top < 0 or rect.bottom > height:
-#             speed[1] = -speed[1]
+
 
         
         
@@ -303,10 +299,9 @@ while running:
     pygame.draw.rect(screen, WHITE, (4, 10, 20, 20), 2)
     pygame.draw.ellipse(screen, WHITE, (4, 40, 20, 20), 2)
     pygame.draw.line(screen, WHITE, (4, 70), (24, 90), 2)
-    screen.blit(move, rect2)
     screen.blit(img1, rect1)
 
-    for s in shapes:
+    for s in shapes[1:]:
             s.draw()
     while dessine_rectangle:
         if len(points)>1:
