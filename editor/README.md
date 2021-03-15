@@ -25,7 +25,7 @@ L'éditeur graphique a des raccourcis pour :
 
 ## Conclusion
 
-Le but a été atteint, engjëll a carry le game, et c tt calm
+Le but a été atteint, les notions vus en cours ont pu être appliqués lors du projet et les fonctionnalités mises en places sont utilisables. 
 Tom Jeannin + Engjëll Ismaili
 
 
