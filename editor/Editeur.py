@@ -3,11 +3,6 @@ import math, sys, os
 from pygame.locals import *
 from rect import *
 
-# = Charger une image
-## = Créer des polygones
-### Créer des rectangles
-#### Déplacer des rectangles
-
 BLACK = (0, 0, 0)
 GRAY = (127, 127, 127)
 WHITE = (255, 255, 255)
@@ -85,6 +80,7 @@ class Shape:
 class Image:
     def __init__(self):
         self.image = pygame.image.load("ball.gif")
+
 #  sers pour l'image, à remettre dans boucle si possible
 
 # if 'Oui' == answer:
@@ -116,10 +112,7 @@ rect1.center = 15, 110
 background = GRAY
 screen = pygame.display.set_mode(size)
 running = True
-dessine_rectangle = False
-dessine_cercle = False
-dessine_ligne = False
-bouge_forme = False
+
 
 while running:
     for event in pygame.event.get():
@@ -135,9 +128,7 @@ while running:
                 else:
                     if tool != i:
                         obj.width = 2
-                i += 1
-            print('tool =', tool)
-                    
+                i += 1  
                     
         if event.type == KEYDOWN:
             if event.key in key_dict:
@@ -180,10 +171,6 @@ while running:
                 elif event.key == K_q:
                     color = GRAY
                 
-                if tool == 0:
-                    type_ = 0
-                if tool == 1:
-                    type_ = 1
 
                 
                 shapes[-1].width = width1
@@ -200,7 +187,6 @@ while running:
             
             elif event.type == MOUSEBUTTONUP:
                 drawing = False
-                (Fx, Fy) = pygame.mouse.get_pos()
 
             elif event.type == MOUSEMOTION and drawing:
                 end = event.pos
@@ -252,19 +238,10 @@ while running:
 #             elif event.type == MOUSEMOTION and moving1:
 #                 rect.move_ip(event.rel)
 #              
-#         while dessine_rectangle or dessine_cercle:        
-#             if event.type == MOUSEBUTTONDOWN:
-#                 points.append(event.pos)
-#                 if 'Oui' == answer3:    
-#                     start = event.pos
-#                     size1 = 0, 0
-#                     drawing = True
-#                     if 'Oui' == answer4:    
-#                         if rect.collidepoint(event.pos):
-#                             moving = True
+#  
                         
         
-        if tool == 0 or tool == 1 or bouge_forme:   
+        if tool == 0 or tool == 1:   
             if event.type == MOUSEBUTTONUP:
                 end = event.pos
                 if tool == 0:   
@@ -272,26 +249,10 @@ while running:
                     rect = pygame.Rect(start, size1)
                     rect_list.append(rect)
                     drawing = False
-                while bouge_forme:
-                    moving = False
-                        
-     
-     # Si l'on veut dessiner des rectangles, remplacer le "moving" par "drawing"
+
         if tool == 0:
-            while bouge_forme:
-                hat = moving
-            else:
-                hat = drawing
-#             if event.type == MOUSEMOTION and hat:
-#                 points[-1] = event.pos
-#                 while bouge_forme:
-#                     end = event.pos
-#                     size1 = end[0] - start[0], end[1] - start[1]
-#                     rect.move_ip(event.rel)
-
-
-        
-        
+            hat = drawing
+ 
     screen.fill(GRAY)
     
     for obj in objects:
@@ -303,22 +264,13 @@ while running:
 
     for s in shapes[1:]:
             s.draw()
-    while dessine_rectangle:
-        if len(points)>1:
-            rect = pygame.draw.lines(screen, RED, True, points, 3)
-            pygame.draw.rect(screen, GREEN, rect, 1)
-
-    #Dessiner un rectangle autour de l'image et la faire apparaître.        
+      
 #  image, à revoir
 
 #     if 'Oui' == answer:
 #         screen.blit(img, rect)
 #         pygame.draw.rect(screen, RED, rect, 1)  
-    while bouge_forme:     
-        pygame.draw.rect(screen, RED, rect)
-        if moving:
-            pygame.draw.rect(screen, BLUE, rect, 4)
-        pygame.display.flip()
+    
     pygame.display.update()
 
 pygame.quit()
