@@ -72,7 +72,7 @@ class Shape:
             pygame.draw.line(screen, self.color, self.start_pos, self.rect.bottomright, self.width)
 
 # # image
-answer = input('Voulez-vous utiliser des images (Oui / Non) ?')
+answer = input('Voulez-vous utiliser des images (Oui / Non) ? ')
 
 if 'Oui' == answer:
     img0 = pygame.image.load("ball.gif")
