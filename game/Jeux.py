@@ -2,11 +2,11 @@ import pygame
 import math, sys, os
 from pygame.locals import *
 
-
+BLACK = (0, 0, 0)
 pygame.init()
 
 class Player:
-    def __init__(self, pv = 100, dmg):
+    def __init__(self, dmg, pv = 100):
         self.pv = pv
         self.dmg = dmg
 
@@ -23,17 +23,17 @@ class Rapido(Ennemi):
         
 class Tankos(Ennemi):
     def __init__(self, pv, dmg, speed):
-        Ennemi.__init__(self, pv = 500, dmg, speed = 0.3)
+        Ennemi.__init__(self, dmg, pv = 500, speed = 0.3)
         self.pv = pv
         self.speed = speed
         
 class FF(Ennemi):
     def __init__(self, pv, dmg, speed):
-        Ennemi.__init__(self, pv, dmg = 50, speed)
+        Ennemi.__init__(self, speed, pv, dmg = 50)
         self.dmg = dmg
         
 background = pygame.image.load("background.png")
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode((1000, 500))
 
 running = True
 
@@ -42,8 +42,6 @@ while running:
         if event.type == QUIT:
             running = False
         
-    screen.fill(background)
+    screen.blit(background, [0, 0])
+    pygame.display.flip()
     
-pygame.display.update()
-    
-
