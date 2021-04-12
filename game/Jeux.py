@@ -1,6 +1,7 @@
 import pygame
-from pygame import *
-from math import *
+import math, sys, os
+from pygame.locals import *
+
 
 pygame.init()
 
@@ -30,5 +31,19 @@ class FF(Ennemi):
     def __init__(self, pv, dmg, speed):
         Ennemi.__init__(self, pv, dmg = 50, speed)
         self.dmg = dmg
+        
+background = pygame.image.load("background.png")
+screen = pygame.display.set_mode(size)
+
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
+        
+    screen.fill(background)
+    
+pygame.display.update()
     
 
