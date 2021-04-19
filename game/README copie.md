@@ -31,3 +31,6 @@
   * Ennemi 3 - FF
 
   * Projectiles
+
+  <img width="86" alt="Capture d’écran 2021-04-19 à 18 27 23" src="https://user-images.githubusercontent.com/77661893/115271552-c085c000-a13d-11eb-82c0-a92cf80b9ab5.png">
+
