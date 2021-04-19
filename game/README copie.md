@@ -18,6 +18,7 @@
 ## Classes
 * Différents personnages dans le jeu :
   * Personnage Principal
+  
   <img width="47" alt="Capture d’écran 2021-04-19 à 18 26 58" src="https://user-images.githubusercontent.com/77661893/115271397-98965c80-a13d-11eb-9555-9ef6220b5071.png">
 
 
