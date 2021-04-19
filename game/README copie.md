@@ -8,6 +8,6 @@
 
 ## Classes
 * Différents personnages dans le jeu :
-* * Personnage Principal - 
+** Personnage Principal - 
 
 * *
