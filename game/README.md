@@ -1,6 +1,6 @@
 # Space Defense
 
-## Jeu
+## Jeu : Jeux.py
 * Le jeu est comparable à un "Plant vs Zombie" / Tower Defense
   * Tuer les ennemis avant qu'ils nous atteignent
   * Survire le plus longtemps possible
