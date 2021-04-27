@@ -1,4 +1,3 @@
-# oc20
 # Space Defense
 
 ## Jeu
