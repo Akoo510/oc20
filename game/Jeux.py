@@ -2,6 +2,7 @@ import pygame
 import math, sys, os
 from pygame.locals import *
 
+
 BLACK = (0, 0, 0)
 pygame.init()
 
