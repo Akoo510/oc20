@@ -9,7 +9,6 @@
 * `editor` contenant un éditeur graphique ainsi que des fichiers qui ont été faits en mars à l'aide de python
 * `game`contenant le jeu (projet de fin d'année), ainsi que les images des personnages dans le dossier `image`
 * `img`comportant des images quelconques
-* `jupyter`contenant le drawio du projet
 * `tutorial` contenant tous les fichiers faits pendant le cours à l'aide de python (dossiers, images, codes)
 
 Bonne visite à vous.
