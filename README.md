@@ -7,10 +7,3 @@
 
 ## Dans ce répositoire se trouve également 5 dossiers concernant le cours et le projet d'informatique:
 **editor** contenant un éditeur graphique fait en mars
-* 
-* 
-
-* ...
-* ...
-https://www.google.ch
-![cursed]
