@@ -121,7 +121,8 @@ while running:
                 if obj.rect.collidepoint(event.pos):
                     print(obj)
                     obj.width = 0
-                    
+#                 if not obj.rect.collidepoint(event.pos):
+#                     obj.width = 2
                     
         if event.type == KEYDOWN:
             if event.key in key_dict:
