@@ -26,6 +26,5 @@ while running:
     pygame.draw.rect(screen, RED, rect)
     pygame.draw.rect(screen, RED, r2)
     pygame.display.flip()
-    
 
 pygame.quit()
