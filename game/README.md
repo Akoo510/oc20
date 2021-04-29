@@ -40,4 +40,6 @@
 
   * Schéma des classes
 
-![issou](https://user-images.githubusercontent.com/77661930/115346651-be107e00-a1b0-11eb-85cc-9966ef92403c.png)
+![Space_defense](https://user-images.githubusercontent.com/77661930/116445434-2963eb00-a856-11eb-9160-7c70f9480713.png)
+
+Le jeu n'étant pas terminé, nous ne pouvons pas vous montrer les différentes classes dans le code ainsi qu'une démonstration du jeu. Cela va bientôt être mis à jour.

@@ -98,6 +98,24 @@ while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False    
+<<<<<<< HEAD
+        if event.type == MOUSEBUTTONDOWN:
+            for obj in objects:
+                if obj.rect.collidepoint(event.pos):
+                    print(obj)
+                    obj.width = 0
+#                 if not obj.rect.collidepoint(event.pos):
+#                     obj.width = 2
+                    
+        if event.type == KEYDOWN:
+            if event.key in key_dict:
+                background = key_dict[event.key]
+            if 'Oui' == answer2:   
+                if event.key == K_ESCAPE:
+                    if len(points) > 0:
+                        points.pop()
+=======
+>>>>>>> d325c852f7208103a2c18d42a9936ee3cd6b0725
         
         if answer != 'Oui':    
             if event.type == MOUSEBUTTONDOWN:
