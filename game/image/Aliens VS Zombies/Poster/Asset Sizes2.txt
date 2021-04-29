@@ -1,0 +1,4 @@
+Characters 128x128 Pixels, 12 Frames
+Jumping 128x192, 12 Frames
+128x215
+Shots 32x32, 4 Frames
