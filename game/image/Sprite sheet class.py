@@ -25,7 +25,7 @@ WHITE = (255, 255, 255)
 
 class spritesheet:
     def __init__(self, filename, cols, rows):
-        self.sheet = pygame.image.load("Soldier.png").convert_alpha()
+        self.sheet = pygame.image.load("Player.png").convert_alpha()
         
         self.cols = cols
         self.rows = rows
