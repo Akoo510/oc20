@@ -29,7 +29,7 @@ class spritesheet:
         h = self.cellHeight = self.rect.height/rows
         hw,hh = self.cellCenter = (w/2, h/2)
         
-        self.cells = list([(Index%cols*w, Index/cols*h, w, h)for Index in range(self.totalCellCount)])
+        self.cells = list([(Index % cols*w, Index/cols*h, w, h) for Index in range(self.totalCellCount)])
         self.handle = list([
             (0, 0), (-hw, 0), (-w, 0),
             (0, -hh), (-hw, -hh), (-w, -hh),
@@ -48,8 +48,8 @@ Index = 0
 
 while True :
     for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
+        if event.type == pygame.QUIT:
+            running = False
     
     
         s.draw(DS, Index % s.totalCellCount, HW, HH, CENTER_HANDLE)
