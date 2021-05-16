@@ -1,22 +1,30 @@
-import math, random, sys
 import pygame
+import math, sys, os
 from pygame.locals import *
 
-pygame.init()
-            
-W, H = 1000,1000
-HW, HH = W/2, H/2
-AREA = W*H
+W, H = 700, 550
+HW, HH = W / 2, H / 2
+PX, PY = 300, 55
+AREA = W * H
 
+pygame.init()
 CLOCK = pygame.time.Clock()
 DS = pygame.display.set_mode((W, H))
-pygame.display.set_caption("Sprite Sheets - Akoo")
+pygame.display.set_caption("Background animation + player")
 FPS = 10
 
-BLACK = (0, 0,0)
+
 WHITE = (255, 255, 255)
 
-class spritesheet:
+
+CENTER_HANDLE = 4
+
+Index = 0
+
+background = pygame.image.load("background.png").convert_alpha()
+x = 0
+
+class Spritesheet:
     def __init__(self, filename, cols, rows):
         self.filename = filename
         self.sheet = pygame.image.load(self.filename).convert_alpha()
@@ -37,28 +45,27 @@ class spritesheet:
         
     def draw(self, surface, cellIndex, x, y, handle = 0):
         surface.blit(self.sheet, (x + self.handle[handle][0], y + self.handle[handle][1]), self.cells[cellIndex])
-        
-s = spritesheet("GreenPlayerRun.png", 8, 1)
 
-CENTER_HANDLE = 4
 
-Index = 0
+s = Spritesheet("GreenPlayerRun.png", 8, 1)
 
 # Loop
 
-while True :
+while True:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+        if event.type == QUIT:
+            pygame.quit()
+            
+    rel_x = x % background.get_rect().width
+    
+    DS.blit(background, (rel_x - background.get_rect().width, 0))
+    if rel_x < W:
+        DS.blit(background, (rel_x, 0))
+    x -= 10
+    
+    s.draw(DS, Index % s.totalCellCount, PY, PX, CENTER_HANDLE)
+    Index += 1
     
     
-        s.draw(DS, Index % s.totalCellCount, HW, HH, CENTER_HANDLE)
-        Index += 1
-        
-        pygame.draw.circle(DS, WHITE, (HW, HH), 2, 0)
-        
-        pygame.display.update()
-        CLOCK.tick(FPS)
-        DS.fill(BLACK)
-
-        
+    pygame.display.update()
+    CLOCK.tick(FPS)
