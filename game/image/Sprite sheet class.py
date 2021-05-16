@@ -18,18 +18,18 @@ WHITE = (255, 255, 255)
 
 class spritesheet:
     def __init__(self, filename, cols, rows):
-        self.sheet = pygame.image.load("Player.png").convert_alpha()
-        
+        self.filename = filename
+        self.sheet = pygame.image.load(self.filename).convert_alpha()
         self.cols = cols
         self.rows = rows
-        self.totalCellCount = cols*rows
+        self.totalCellCount = cols * rows
         
         self.rect = self.sheet.get_rect()
-        w = self.cellWidth = self.rect.width/cols
-        h = self.cellHeight = self.rect.height/rows
-        hw,hh = self.cellCenter = (w/2, h/2)
+        w = self.cellWidth = int(self.rect.width / cols)
+        h = self.cellHeight = int(self.rect.height / rows)
+        hw,hh = self.cellCenter = (int(w / 2), int(h / 2))
         
-        self.cells = list([(Index % cols*w, Index/cols*h, w, h) for Index in range(self.totalCellCount)])
+        self.cells = list([(Index % cols * w, int(Index / cols) * h, w, h) for Index in range(self.totalCellCount)])
         self.handle = list([
             (0, 0), (-hw, 0), (-w, 0),
             (0, -hh), (-hw, -hh), (-w, -hh),
