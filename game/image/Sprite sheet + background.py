@@ -2,16 +2,20 @@ import pygame
 import math, sys, os
 from pygame.locals import *
 
+pygame.init()
+
 W, H = 700, 550
 HW, HH = W / 2, H / 2
 PX, PY = 55, 300
 AREA = W * H
 
-pygame.init()
 CLOCK = pygame.time.Clock()
 DS = pygame.display.set_mode((W, H))
 pygame.display.set_caption("Background animation + player")
 FPS = 10
+
+# Icône
+pygame.display.set_icon(pygame.image.load("Icone.png"))
 
 
 WHITE = (255, 255, 255)
@@ -65,13 +69,13 @@ while True:
 
         if event.type == KEYDOWN:
             
-            if event.key == K_s:
+            if event.key == K_s or event.key == K_DOWN:
                 if number < 2:
                     number += 1
                 if number == 2:
                     number = 2
             
-            if event.key == K_w:
+            if event.key == K_w or event.key == K_UP:
                 if number > 0:
                     number -= 1
                 if number == 0:
@@ -86,12 +90,6 @@ while True:
     
     s.draw(DS, Index % s.totalCellCount, PX, Player_PosY[number], CENTER_HANDLE)
     Index += 1
-    
-    pygame.draw.line(DS, RED, (0, 142), (700, 142), 1)
-    pygame.draw.line(DS, RED, (0, 236), (700, 236), 1)
-    pygame.draw.line(DS, RED, (0, 375), (700, 375), 1)
-    pygame.draw.line(DS, RED, (0, 549), (700, 549), 1)
-    
     
     pygame.display.update()
     CLOCK.tick(FPS)
