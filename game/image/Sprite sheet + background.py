@@ -25,6 +25,7 @@ RED = (255, 0, 0)
 CENTER_HANDLE = 4
 
 Index = 0
+Index_ball = 0
 
 background = pygame.image.load("background.png").convert_alpha()
 x = 0
@@ -56,9 +57,11 @@ Player_PosY = list([
     (190), (305), (462)])
 
 number = 1
+move = 0
     
 
-s = Spritesheet("GreenPlayerRun.png", 8, 1)
+p = Spritesheet("GreenPlayerRun.png", 8, 1)
+b = Spritesheet("Ball.png", 3, 1)
 
 # Loop
 
@@ -80,6 +83,7 @@ while True:
                     number -= 1
                 if number == 0:
                     number = 0
+                    
         
     rel_x = x % background.get_rect().width
     
@@ -88,8 +92,11 @@ while True:
         DS.blit(background, (rel_x, 0))
     x -= 10
     
-    s.draw(DS, Index % s.totalCellCount, PX, Player_PosY[number], CENTER_HANDLE)
+    p.draw(DS, Index % p.totalCellCount, PX, Player_PosY[number], CENTER_HANDLE)
     Index += 1
+    
+    b.draw(DS, Index % b.totalCellCount, PX + 19 + move, Player_PosY[number] - 3, CENTER_HANDLE)
+    move += 15
     
     pygame.display.update()
     CLOCK.tick(FPS)
