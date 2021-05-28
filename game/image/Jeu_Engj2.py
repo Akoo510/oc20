@@ -3,7 +3,6 @@ from pygame.locals import *
 import random
 
 pygame.init()
-mixer.init()
 
 CLOCK = pygame.time.Clock()
 
@@ -23,9 +22,9 @@ z = 0
 # Sound & Music
 
 fire_sound = pygame.mixer.Sound("Sound_effect/Gunshot_2.mpeg")
-mixer.music.load("Ambiant_music/" + random.choice[()]
-mixer.music.set_volume(0.7)
-mixer.music.play()
+pygame.mixer.music.load("Ambiant_music/Techno.mp3")
+pygame.mixer.music.set_volume(0.2)
+pygame.mixer.music.play()
 
 # Setting Background & Icon
 
