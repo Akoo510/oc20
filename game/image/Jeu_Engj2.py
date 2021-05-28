@@ -3,6 +3,7 @@ from pygame.locals import *
 import random
 
 pygame.init()
+mixer.init()
 
 CLOCK = pygame.time.Clock()
 
@@ -15,16 +16,25 @@ height = 60
 vel = 5
 FPS = 90
 i = 0
-
 player_pos = [130, 275, 420]
 number = 1
-fire_sound = pygame.mixer.Sound("Sound_effect/Gunshot.wav")
+z = 0
+
+# Sound & Music
+
+fire_sound = pygame.mixer.Sound("Sound_effect/Gunshot_2.mpeg")
+mixer.music.load("Ambiant_music/" + random.choice[()]
+mixer.music.set_volume(0.7)
+mixer.music.play()
+
+# Setting Background & Icon
 
 pygame.display.set_caption("Alien Defense")
 pygame.display.set_icon(pygame.image.load("Icone.png"))
 screen = pygame.display.set_mode((W, H))
 background = pygame.image.load("background.png").convert_alpha()
-z = 0
+
+
 # Ennemy : Mecha
 mecha_walk = [pygame.image.load('Mecha_img/Mecha_walk_01.png'),
               pygame.image.load('Mecha_img/Mecha_walk_02.png'),
@@ -87,7 +97,6 @@ class Player(pygame.sprite.Sprite):
         
         self.image = self.sprites[int(self.current_sprite)]
     
-
 class Mecha:
     def __init__(self, x, y):
         self.x = x
@@ -249,7 +258,7 @@ while True:
         
     for cyborg in cyborgs:
         cyborg.draw(screen)
-        
+      
     moving_sprites.draw(screen)
     moving_sprites.update()
     pygame.display.flip()
