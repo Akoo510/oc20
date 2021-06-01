@@ -65,22 +65,23 @@ A une barre de point de vie (1000pv)
   * Exemple de classe (Player)
  
  
- class Player(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y):
-        super().__init__()
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.sprites = load_images('Player_img')
-        self.pv = 1000
-        self.image = self.sprites[0]
-        self.rect = self.image.get_rect()
-        self.rect.topleft = [pos_x, pos_y]
-        self.i = 0
-        
-    def update(self):
-        if frame % 10 == 0:
-            self.i = (self.i + 1) % len(self.sprites)
-            self.image = self.sprites[self.i]
+        class Player(pygame.sprite.Sprite):
+    
+           def __init__(self, pos_x, pos_y):
+               super().__init__()
+               self.pos_x = pos_x
+               self.pos_y = pos_y
+               self.sprites = load_images('Player_img')
+               self.pv = 1000
+               self.image = self.sprites[0]
+               self.rect = self.image.get_rect()
+               self.rect.topleft = [pos_x, pos_y]
+               self.i = 0
+
+           def update(self):
+               if frame % 10 == 0:
+                   self.i = (self.i + 1) % len(self.sprites)
+                   self.image = self.sprites[self.i]
 
 
 Le jeu n'étant pas terminé, nous ne pouvons pas vous montrer les différentes classes dans le code ainsi qu'une démonstration du jeu. Cela va bientôt être mis à jour.
