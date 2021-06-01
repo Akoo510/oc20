@@ -24,7 +24,7 @@ other_speed = 2
 
 player_pos = [130, 285, 420]
 number = 1
-fire_sound = pygame.mixer.Sound("Sound_effect/Gunshot.wav")
+fire_sound = pygame.mixer.Sound("Sound_effect/Gunshot_2.mpeg")
 
 pygame.display.set_caption("Alien Defense")
 pygame.display.set_icon(pygame.image.load("Icone.png"))
@@ -97,7 +97,7 @@ class Mecha(Ennemi):
     def __init__(self, x, y):
         Ennemi.__init__(self, x, y)
         self.sprites = load_images('Mecha_img')
-        self.pv = 200
+        self.pv = 2000
         self.image = self.sprites[0]
         self.rect = self.image.get_rect()
         self.rect.topleft = [x, y]
@@ -130,7 +130,7 @@ class Gunman(Ennemi):
     def __init__(self, x, y):
         Ennemi.__init__(self, x, y)
         self.sprites = load_images('Gunman_img')
-        self.pv = 200
+        self.pv = 750
         self.image = self.sprites[0]
         self.rect = self.image.get_rect()
         self.rect.topleft = [x, y]
@@ -174,7 +174,7 @@ class Cyborg(Ennemi):
     def __init__(self, x, y):
         Ennemi.__init__(self, x, y)
         self.sprites = load_images('Cyborg_img')
-        self.pv = 200
+        self.pv = 1250
         self.image = self.sprites[0]
         self.rect = self.image.get_rect()
         self.rect.topleft = [x, y]
@@ -211,7 +211,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.img.get_rect()
         self.rect.center = pos
         self.speed = speed
-        self.damage = 25
+        self.damage = 250
         
     def move(self):
         self.rect.move_ip(self.speed)
