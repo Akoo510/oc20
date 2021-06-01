@@ -29,40 +29,41 @@ A une barre de point de vie (1000pv)
 
  ![Mecha_walk_01](https://user-images.githubusercontent.com/77661930/120357345-a1b24600-c305-11eb-975e-9cf9ee9939b8.png)
  
-  Il se déplace horizontalement avec une vitesse donnée
- A une hitbox
- A une barre de point de vie (2000pv)
+- Il se déplace horizontalement avec une vitesse donnée
+- A une hitbox
+- A une barre de point de vie (2000pv)
 
   * Ennemi 2 - Gunman
   
   ![Gunman_img_03](https://user-images.githubusercontent.com/77661930/120357405-b393e900-c305-11eb-816d-3a06c301371b.png)
   
-  Il se déplace horizontalement avec une vitesse donnée
- A une hitbox
- A une barre de point de vie (750pv)
+- Il se déplace horizontalement avec une vitesse donnée
+- A une hitbox
+- A une barre de point de vie (750pv)
 
   * Ennemi 3 - Cyborg
 
  ![Cyborg_img_01](https://user-images.githubusercontent.com/77661930/120357477-c9a1a980-c305-11eb-8fbb-8f781f5ccb37.png)
  
-  Il se déplace horizontalement avec une vitesse donnée
- A une hitbox
- A une barre de point de vie (1250pv)
+- Il se déplace horizontalement avec une vitesse donnée
+- A une hitbox
+- A une barre de point de vie (1250pv)
 
   * Projectiles
 
   <img width="86" alt="Capture d’écran 2021-04-19 à 18 27 23" src="https://user-images.githubusercontent.com/77661893/115271552-c085c000-a13d-11eb-82c0-a92cf80b9ab5.png">
   
-  Émettent un son lors du lancement
- Infligent 250 dommages
- Ont une vitesse donnée
- Ont une hitbox et détectent lorsqu'elle rentre en contact avec celle des ennemies
+- Émettent un son lors du lancement
+- Infligent 250 dommages
+- Ont une vitesse donnée
+- Ont une hitbox et détectent lorsqu'elle rentre en contact avec celle des ennemies
 
   * Schéma des classes
 
 ![Class diagram](https://user-images.githubusercontent.com/77661930/120223792-70247680-c242-11eb-88d6-adf93ba317ae.png)
 
   * Exemple de classe (Player)
+ 
  
  class Player(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
