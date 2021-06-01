@@ -84,4 +84,4 @@ A une barre de point de vie (1000pv)
                    self.image = self.sprites[self.i]
 
 
-Le jeu n'étant pas terminé, nous ne pouvons pas vous montrer les différentes classes dans le code ainsi qu'une démonstration du jeu. Cela va bientôt être mis à jour.
+WIP
