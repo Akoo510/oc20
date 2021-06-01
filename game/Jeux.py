@@ -10,6 +10,7 @@ W = 700
 H = 550
 x = 50
 y = 440
+z = 0
 width = 40
 height = 60
 vel = 5
@@ -24,13 +25,22 @@ other_speed = 2
 
 player_pos = [130, 285, 420]
 number = 1
-fire_sound = pygame.mixer.Sound("Sound_effect/Gunshot_2.mpeg")
 
-pygame.display.set_caption("Alien Defense")
+# Sound & Music
+
+fire_sound = pygame.mixer.Sound("Sound_effect/Gunshot_2.mpeg")
+pygame.mixer.music.load("Ambiant_music/Techno.mp3")
+pygame.mixer.music.set_volume(0.2)
+pygame.mixer.music.play()
+
+# Setting Background & Icon
+
+pygame.display.set_caption("Space Defense")
 pygame.display.set_icon(pygame.image.load("Icone.png"))
 screen = pygame.display.set_mode((W, H))
 background = pygame.image.load("background.png").convert_alpha()
-z = 0
+
+# Function to load images
 
 def load_images(folder):
     """return a list of images in the specified folder"""
@@ -41,12 +51,16 @@ def load_images(folder):
         img = pygame.image.load(folder + '/' + file)
         images.append(img)
     return images
-# Ennemy : Mecha
+
+
+# Ennemies
 mecha_walk = load_images('Mecha_img')
 gunman_walk = load_images('Gunman_img')
 cyborg_walk = load_images('Cyborg_img')
 
 # Class
+
+# Player
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, pos_x, pos_y):
@@ -93,6 +107,8 @@ class Ennemi:
         if self.stepIndex >= 80:
             self.stepIndex = 0
 
+# Mecha
+
 class Mecha(Ennemi):
     def __init__(self, x, y):
         Ennemi.__init__(self, x, y)
@@ -125,7 +141,9 @@ class Mecha(Ennemi):
 #         
 #     def move(self):
 #         self.x -= 0.3
-        
+
+# Gunman
+
 class Gunman(Ennemi):
     def __init__(self, x, y):
         Ennemi.__init__(self, x, y)
@@ -169,7 +187,9 @@ class Gunman(Ennemi):
 #         
 #     def move(self):
 #         self.x -= 0.6
-        
+
+# Cyborg
+
 class Cyborg(Ennemi):
     def __init__(self, x, y):
         Ennemi.__init__(self, x, y)
@@ -203,6 +223,8 @@ class Cyborg(Ennemi):
 #     def move(self):
 #         self.x -= 0.3
         
+# Bullet
+
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos=(100, 300)):
         pygame.sprite.Sprite.__init__(self)
@@ -235,8 +257,9 @@ mechas = []
 gunmans = []
 cyborgs = []
 bullets = []
+lane = 1
 
-# Loop
+# Main Loop
 
 while True:
     for event in pygame.event.get():
@@ -246,16 +269,18 @@ while True:
         
         if event.type == KEYDOWN:
             if event.key == K_w:
-                player.rect.move_ip(0, -140)
+                if lane == 1 or lane == 0: 
+                    player.rect.move_ip(0, -140)
+                    lane +=1
             elif event.key == K_s:
-                player.rect.move_ip(0, 140)
+                if lane == 1 or lane == 2:
+                    player.rect.move_ip(0, 140)
+                    lane -=1
+                    
                 
             elif event.key == K_f:
                 fire_sound.play()
                 group.add(Bullet(player.rect.center))
-                
-            elif event.key == K_k:
-                mechas.pop()
     
     rel_z = z % background.get_rect().width
     screen.blit(background, (rel_z - background.get_rect().width, 0))
