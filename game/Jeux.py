@@ -293,7 +293,7 @@ while True:
         screen.blit(bullet.img,bullet.rect)
         
     # Mecha
-    if len(mechas) == 0:
+    if len(mechas) == 1:
         mecha = Mecha(570, random.choice([130, 260, 420]))
         mechas.append(mecha)
         
