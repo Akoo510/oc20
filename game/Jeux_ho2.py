@@ -3,6 +3,7 @@ import sys, os, time, random
 from pygame.locals import *
 
 pygame.init()
+score = 0
 
 # Source:
 # https://pygame.readthedocs.io/en/latest/5_app/app.html
@@ -80,7 +81,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
 
     def set_pv(self, pv):
         self.pv = pv      
-        self.label.set_text(str(self.pv))  
+        self.label.set_text(str(self.pv))
 
     def load_images(self, folder):
         # load images from a folder
@@ -127,12 +128,12 @@ class Player(AnimatedSprite):
 
     def keydown(self, event):
         """The player knows how to react to keys."""
-        if event.key == K_w:
+        if event.key == K_w or event.key == K_UP:
             if self.lane == 1 or self.lane == 0: 
                 self.rect.move_ip(0, -140)
                 self.lane +=1
 
-        elif event.key == K_s:
+        elif event.key == K_s or event.key == K_DOWN:
             if self.lane == 1 or self.lane == 2:
                 self.rect.move_ip(0, 140)
                 self.lane -=1
@@ -150,9 +151,9 @@ class Enemy(AnimatedSprite):
     """
     enemies = pygame.sprite.Group()
 
-    def __init__(self, folder, pv=1000):
+    def __init__(self, folder, pv=1000, speed = [-1, 0]):
         super().__init__(folder, pv)
-        self.speed = [-1, 0]
+        self.speed = speed
         self.set_init_pos()
 
     def set_init_pos(self):
@@ -188,6 +189,8 @@ class Bullet(pygame.sprite.Sprite):
         self.damage = 250
         
     def move(self):
+        global score
+        
         self.rect.move_ip(self.speed)
         if self.rect.x > Game.W:
             Bullet.bullets.remove(self)
@@ -199,6 +202,7 @@ class Bullet(pygame.sprite.Sprite):
                 enemy.label.set_text(str(enemy.pv))
                 if enemy.pv <= 0:
                     enemy.set_init_pos()
+                    score += 100
 
 
 # Class documentation
@@ -226,9 +230,9 @@ class Game:
         self.z = 0
         self.stopping = False
 
-        # pygame.mixer.music.load("Ambiant_music/Techno.mp3")
-        # pygame.mixer.music.set_volume(0.2)
-        # pygame.mixer.music.play()
+        pygame.mixer.music.load("Ambiant_music/Techno.mp3")
+        pygame.mixer.music.set_volume(0.2)
+        pygame.mixer.music.play()
 
         self.background = pygame.image.load("background.png").convert_alpha()
 
@@ -238,12 +242,13 @@ class Game:
         self.player = Player('Player_img')
 
         Enemy.enemies.add(Enemy('Mecha_img', 2000))
-        Enemy.enemies.add(Enemy('Gunman_img', 750))
-        Enemy.enemies.add(Enemy('Cyborg_img', 1250))
+        Enemy.enemies.add(Enemy('Gunman_img', 750, [-3, 0]))
+        Enemy.enemies.add(Enemy('Cyborg_img', 1250, [-2, 0]))
 
         self.label_frame = Text('frame', pos=(10,10))
         self.label_time = Text('time', pos=(10, 30))
         self.label_FPS = Text('FPS', pos=(10, 50))
+        self.label_score = Text('SCORE', pos=(325, 20))
 
         self.t0 = time.time()
 
@@ -297,10 +302,13 @@ class Game:
         self.label_frame.set_text('frame: ' + str(Game.frame))
         self.label_time.set_text(f'time: {self.t:.1f}')
         self.label_FPS.set_text(f'FPS: {Game.frame/self.t:.1f}')
+        self.label_score.set_text('SCORE: ' + str(score))
+        
 
         self.label_frame.draw()
         self.label_time.draw()
-        self.label_FPS.draw() 
+        self.label_FPS.draw()
+        self.label_score.draw()
 
 game = Game()
 game.run()
