@@ -2,7 +2,7 @@ import pygame
 import sys, os, time, random
 from pygame.locals import *
 
-pygame.init()
+pygame.init()   
 score = 0
 
 # Source:
@@ -158,7 +158,7 @@ class Enemy(AnimatedSprite):
 
     def set_init_pos(self):
         self.set_pv(self.pv0)   # reset to original value
-        self.rect.x = Game.W    # reset x position
+        self.rect.x = 1.2 * Game.W    # reset x position
         self.rect.y = random.choice([130, 260, 420])
 
     def move(self):
@@ -211,7 +211,6 @@ print(AnimatedSprite.__doc__)
 print(Player.__doc__)
 print(Enemy.__doc__)
 print(Bullet.__doc__)
-
 
 class Game:
     W = 700
@@ -281,6 +280,11 @@ class Game:
                     enemy.move()
 
                 self.z -= 1
+            
+            if score % 1000 == 0 and score != 0:    
+                for i in range(int(score/1000)):
+                    Enemy.enemies.add(random.choice([Enemy('Mecha_img', 2000), Enemy('Gunman_img', 750, [-3, 0]), Enemy('Cyborg_img', 1250, [-2, 0])]))
+                
                 
             for enemy in Enemy.enemies:
                     enemy.draw()
