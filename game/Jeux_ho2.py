@@ -4,6 +4,7 @@ from pygame.locals import *
 
 pygame.init()   
 score = 0
+b = 0
 
 # Source:
 # https://pygame.readthedocs.io/en/latest/5_app/app.html
@@ -37,6 +38,22 @@ class Text:
     def draw(self):
         """Draw the text image to the screen."""
         Game.screen.blit(self.image, self.rect)
+        
+class Health_bar:
+    """The Health_bar class creates a health bar"""
+    
+    def __init__(self, pos=(0,0)):
+        self.pos = pos
+        
+    def set_pos(self, pos):
+        self.pos = pos
+        self.rect.topleft = pos
+        
+    def set_pv(self, pv):
+        self.pv = pv
+        self.image = 3
+# Tentative barre de vie, à revoir        
+    
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
@@ -82,6 +99,11 @@ class AnimatedSprite(pygame.sprite.Sprite):
     def set_pv(self, pv):
         self.pv = pv      
         self.label.set_text(str(self.pv))
+        self.bar_color = (52, 201, 36)
+        self.bar_pos_x = self.rect[0] + 10
+        self.bar_pos_y = self.rect[1] + 10
+        pygame.draw.rect(Game.screen, self.bar_color, self.rect, 20)
+        """barre de vie visible mais que qd l'enemi meurt => tenter ds une classe"""
 
     def load_images(self, folder):
         # load images from a folder
@@ -203,6 +225,8 @@ class Bullet(pygame.sprite.Sprite):
                 if enemy.pv <= 0:
                     enemy.set_init_pos()
                     score += 100
+                    global b
+                    b = 0
 
 
 # Class documentation
@@ -240,9 +264,9 @@ class Game:
 
         self.player = Player('Player_img')
 
-        Enemy.enemies.add(Enemy('Mecha_img', 2000))
-        Enemy.enemies.add(Enemy('Gunman_img', 750, [-3, 0]))
-        Enemy.enemies.add(Enemy('Cyborg_img', 1250, [-2, 0]))
+        Enemy.enemies.add(Enemy('Mecha_img', 1500))
+        Enemy.enemies.add(Enemy('Gunman_img', 500, [-3, 0]))
+        Enemy.enemies.add(Enemy('Cyborg_img', 750, [-2, 0]))
 
         self.label_frame = Text('frame', pos=(10,10))
         self.label_time = Text('time', pos=(10, 30))
@@ -281,15 +305,16 @@ class Game:
 
                 self.z -= 1
             
-            if score % 1000 == 0 and score != 0:    
-                for i in range(int(score/1000)):
-                    Enemy.enemies.add(random.choice([Enemy('Mecha_img', 2000), Enemy('Gunman_img', 750, [-3, 0]), Enemy('Cyborg_img', 1250, [-2, 0])]))
-                
+                global b
+                if score % 1000 == 0 and score != 0 and b == 0:    
+                    for i in range(int(score/2000)):
+                        Enemy.enemies.add(random.choice([Enemy('Mecha_img', 1500), Enemy('Gunman_img', 500, [-3, 0]), Enemy('Cyborg_img', 750, [-2, 0])]))
+                    b = 1
                 
             for enemy in Enemy.enemies:
                     enemy.draw()
 
-            self.player.draw()
+            self.player.draw()  
             self.statistics()
             Bullet.bullets.draw(Game.screen)
             pygame.display.flip()
