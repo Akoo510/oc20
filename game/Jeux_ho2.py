@@ -253,7 +253,7 @@ class Game:
         self.z = 0
         self.stopping = False
 
-        pygame.mixer.music.load("Ambiant_music/Techno.mp3")
+        pygame.mixer.music.load(random.choice(["Ambiant_music/Techno.mp3", "Ambiant_music/Bass.flac", "Ambiant_music/Metalophone.wav", "Ambiant_music/Speed.mp3"]))
         pygame.mixer.music.set_volume(0.2)
         pygame.mixer.music.play()
 
