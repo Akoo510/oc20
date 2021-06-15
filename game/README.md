@@ -15,7 +15,7 @@
 * Vitesse des ennemis et apparition aléatoire (augmente avec le temps)
 
 ## Classes
-** Text 
+# Text 
 * 
 
   * Projectiles
