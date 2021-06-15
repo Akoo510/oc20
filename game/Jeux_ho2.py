@@ -191,6 +191,8 @@ class Enemy(AnimatedSprite):
         # it returns to the original position
         if self.rect.x < -self.rect.width:
             self.set_init_pos()
+            game.player.pv -= 100
+            game.player.label.set_text(str(game.player.pv))
 
 
 class Bullet(pygame.sprite.Sprite):
@@ -211,7 +213,6 @@ class Bullet(pygame.sprite.Sprite):
         self.damage = 250
         
     def move(self):
-        global score
         
         self.rect.move_ip(self.speed)
         if self.rect.x > Game.W:
@@ -223,9 +224,10 @@ class Bullet(pygame.sprite.Sprite):
                 enemy.pv -= self.damage
                 enemy.label.set_text(str(enemy.pv))
                 if enemy.pv <= 0:
+                    global score
+                    global b
                     enemy.set_init_pos()
                     score += 100
-                    global b
                     b = 0
 
 
@@ -307,7 +309,7 @@ class Game:
             
                 global b
                 if score % 1000 == 0 and score != 0 and b == 0:    
-                    for i in range(int(score/2000)):
+                    for i in range(1):
                         Enemy.enemies.add(random.choice([Enemy('Mecha_img', 1500), Enemy('Gunman_img', 500, [-3, 0]), Enemy('Cyborg_img', 750, [-2, 0])]))
                     b = 1
                 
