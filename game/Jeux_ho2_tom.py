@@ -99,14 +99,11 @@ class AnimatedSprite(pygame.sprite.Sprite):
     def set_pv(self, pv):
         self.pv = pv      
         self.label.set_text(str(self.pv))
-        
-        
-    def health_bar(self, pv):
-        self.pv = pv
         self.bar_color = (52, 201, 36)
-        self.bar_pos_x = self.rect[0] - 10
-        self.bar_pos_y = self.rect[1] + 15
-        pygame.draw.rect(Game.screen, self.bar_color, (self.bar_pos_x, self.bar_pos_y, 50, 3), 20)
+        self.bar_pos_x = self.rect[0] + 10
+        self.bar_pos_y = self.rect[1] + 10
+        pygame.draw.rect(Game.screen, self.bar_color, self.rect, 20)
+        """barre de vie visible mais que qd l'enemi meurt => tenter ds une classe"""
 
     def load_images(self, folder):
         # load images from a folder
@@ -150,6 +147,7 @@ class Player(AnimatedSprite):
         self.player_pos = [130, 285, 420]
         self.rect.x = 50 
         self.rect.y = self.player_pos[1]
+        self.pv = pv
 
     def keydown(self, event):
         """The player knows how to react to keys."""
@@ -180,6 +178,7 @@ class Enemy(AnimatedSprite):
         super().__init__(folder, pv)
         self.speed = speed
         self.set_init_pos()
+        self.damage = 100
 
     def set_init_pos(self):
         self.set_pv(self.pv0)   # reset to original value
@@ -196,7 +195,6 @@ class Enemy(AnimatedSprite):
             self.set_init_pos()
             game.player.pv -= 100
             game.player.label.set_text(str(game.player.pv))
-
 
 class Bullet(pygame.sprite.Sprite):
     """The Bullet class creates bullet objects, which
@@ -216,6 +214,7 @@ class Bullet(pygame.sprite.Sprite):
         self.damage = 250
         
     def move(self):
+        global score
         
         self.rect.move_ip(self.speed)
         if self.rect.x > Game.W:
@@ -226,12 +225,10 @@ class Bullet(pygame.sprite.Sprite):
                 Bullet.bullets.remove(self)
                 enemy.pv -= self.damage
                 enemy.label.set_text(str(enemy.pv))
-                enemy.health_bar(int(enemy.pv))
                 if enemy.pv <= 0:
-                    global score
-                    global b
                     enemy.set_init_pos()
                     score += 100
+                    global b
                     b = 0
 
 
@@ -252,21 +249,41 @@ class Game:
     def __init__(self):
 
         pygame.init()
+        self.is_playing = False
         self.clock = pygame.time.Clock()
         pygame.display.set_caption("Space Defense")
         pygame.display.set_icon(pygame.image.load("Icone.png"))
         self.frame = 0
         self.z = 0
         self.stopping = False
-
-        pygame.mixer.music.load(random.choice(["Ambiant_music/Techno.mp3", "Ambiant_music/Bass.flac", "Ambiant_music/Metalophone.wav", "Ambiant_music/Speed.mp3"]))
-        pygame.mixer.music.set_volume(0.2)
-        pygame.mixer.music.play()
+        #banner
+        self.banner = pygame.image.load('banner.png')
+        self.banner = pygame.transform.scale(self.banner, (500, 200))
+        self.banner_rect = self.banner.get_rect()
+        self.banner_rect.x = self.screen.get_width() / 7
+        self.banner_rect.y = self.screen.get_height() / 6
+        #button play
+        self.play_button = pygame.image.load('play_button.png')
+        self.play_button = pygame.transform.scale(self.play_button, (300, 200))
+        self.play_button_rect = self.play_button.get_rect()
+        self.play_button_rect.x = self.screen.get_width() / 3.5
+        self.play_button_rect.y = self.screen.get_height() / 2
+        #gameover
+        self.gameover = pygame.image.load('gameover.jpg')
+        self.gameover = pygame.transform.scale(self.gameover, (500, 200))
+        self.gameover_rect = self.gameover.get_rect()
+        self.gameover_rect.x = self.screen.get_width() / 7
+        self.gameover_rect.y = self.screen.get_height() / 6
+        
+        
+#         pygame.mixer.music.load(random.choice(["Ambiant_music/Techno.mp3", "Ambiant_music/Bass.flac", "Ambiant_music/Metalophone.wav", "Ambiant_music/Speed.mp3"]))
+#         pygame.mixer.music.set_volume(0.2)
+#         pygame.mixer.music.play()
 
         self.background = pygame.image.load("background.png").convert_alpha()
 
-        self.screen.blit(self.background, (0, 0))
-        pygame.display.flip()
+#         self.screen.blit(self.background, (0, 0))
+#         pygame.display.flip()
 
         self.player = Player('Player_img')
 
@@ -280,10 +297,54 @@ class Game:
         self.label_score = Text('SCORE', pos=(325, 20))
 
         self.t0 = time.time()
+    
+    def update(self, screen):
+        self.player.draw()  
+        self.statistics()
+        Bullet.bullets.draw(Game.screen)
+        pygame.display.flip()
+        self.clock.tick(Game.FPS)
+        rel_z = self.z % self.background.get_rect().width
+        self.screen.blit(self.background, (rel_z - self.background.get_rect().width, 0))
+        if rel_z < Game.W:
+            self.screen.blit(self.background, (rel_z, 0))
+
+
+        if not self.stopping:
+            self.player.update()
+
+            for bullet in Bullet.bullets:
+                bullet.move()
+
+            for enemy in Enemy.enemies:
+                enemy.update()
+                enemy.move()
+
+            self.z -= 1
+            
+            global b
+            if score % 1000 == 0 and score != 0 and b == 0:    
+                for i in range(1):
+                    Enemy.enemies.add(random.choice([Enemy('Mecha_img', 1500), Enemy('Gunman_img', 500, [-3, 0]), Enemy('Cyborg_img', 750, [-2, 0])]))
+                b = 1
+                
+        for enemy in Enemy.enemies:
+                enemy.draw()
 
     def run(self):
+        running = True
         # running the game loop
-        while True:
+        while running:
+            self.screen.blit(self.background, (0, 0))
+            if game.is_playing:
+                game.update(self.screen)
+            else:
+                self.screen.blit(self.banner, self.banner_rect)
+                self.screen.blit(self.play_button, self.play_button_rect)
+            if game.player.pv <= 900:
+#                 running = False
+                self.screen.blit(self.gameover, self.gameover_rect)
+            pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -292,42 +353,11 @@ class Game:
                     self.player.keydown(event)
                     if event.key == K_SPACE:
                         self.stopping = not self.stopping
-            
-            rel_z = self.z % self.background.get_rect().width
-            self.screen.blit(self.background, (rel_z - self.background.get_rect().width, 0))
-            if rel_z < Game.W:
-                self.screen.blit(self.background, (rel_z, 0))
-
-
-            if not self.stopping:
-                self.player.update()
-
-                for bullet in Bullet.bullets:
-                    bullet.move()
-
-                for enemy in Enemy.enemies:
-                    enemy.update()
-                    enemy.move()
-
-                self.z -= 1
-            
-                global b
-                if score % 1000 == 0 and score != 0 and b == 0:    
-                    for i in range(1):
-                        Enemy.enemies.add(random.choice([Enemy('Mecha_img', 1500), Enemy('Gunman_img', 500, [-3, 0]), Enemy('Cyborg_img', 750, [-2, 0])]))
-                    b = 1
-                
-            for enemy in Enemy.enemies:
-                    enemy.draw()
-
-            self.player.draw()  
-            self.statistics()
-            Bullet.bullets.draw(Game.screen)
-            pygame.display.flip()
-
-            self.clock.tick(Game.FPS)
-
-
+                        
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if self.play_button_rect.collidepoint(event.pos):
+                        game.is_playing = True
+                    
     def statistics(self):
         # calculate game statistics
         Game.frame += 1
