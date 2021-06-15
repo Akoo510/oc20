@@ -8,46 +8,15 @@
 * Pas de capture d'écran du jeu, car pas encore fini
 
 ## Structure du jeu
-* Différentes classes pour les ennemis
+* Différentes classes pour le jeu
 * Des bruitages
 * Système de déplacement du personnage principal (WS)
 * Système de projectiles pour tuer les ennemis (F)
-* Vitesse des ennemis et apparition aléatoire (augmente avec le temps (Work in progress))
+* Vitesse des ennemis et apparition aléatoire (augmente avec le temps)
 
 ## Classes
-* Différents personnages dans le jeu :
-  * Personnage Principal
-  
-  <img width="47" alt="Capture d’écran 2021-04-19 à 18 26 58" src="https://user-images.githubusercontent.com/77661893/115271397-98965c80-a13d-11eb-9555-9ef6220b5071.png">
-
-Il a la possibilité de tirer des projéctiles [F] infligeant 250 dommages
-De se déplacer verticalement [W], [S] (respéctivement haut et bas)
-A une barre de point de vie (1000pv)
-
- 
-  * Ennemi 1 - Mecha
-
- ![Mecha_walk_01](https://user-images.githubusercontent.com/77661930/120357345-a1b24600-c305-11eb-975e-9cf9ee9939b8.png)
- 
-- Il se déplace horizontalement avec une vitesse donnée
-- A une hitbox
-- A une barre de point de vie (2000pv)
-
-  * Ennemi 2 - Gunman
-  
-  ![Gunman_img_03](https://user-images.githubusercontent.com/77661930/120357405-b393e900-c305-11eb-816d-3a06c301371b.png)
-  
-- Il se déplace horizontalement avec une vitesse donnée
-- A une hitbox
-- A une barre de point de vie (750pv)
-
-  * Ennemi 3 - Cyborg
-
- ![Cyborg_img_01](https://user-images.githubusercontent.com/77661930/120357477-c9a1a980-c305-11eb-8fbb-8f781f5ccb37.png)
- 
-- Il se déplace horizontalement avec une vitesse donnée
-- A une hitbox
-- A une barre de point de vie (1250pv)
+* Text 
+- f
 
   * Projectiles
 
@@ -85,3 +54,37 @@ A une barre de point de vie (1000pv)
 
 
 WIP
+
+* Différents personnages dans le jeu :
+  * Personnage Principal
+  
+  <img width="47" alt="Capture d’écran 2021-04-19 à 18 26 58" src="https://user-images.githubusercontent.com/77661893/115271397-98965c80-a13d-11eb-9555-9ef6220b5071.png">
+
+Il a la possibilité de tirer des projéctiles [F] infligeant 250 dommages
+De se déplacer verticalement [W], [S] (respéctivement haut et bas)
+A une barre de point de vie (1000pv)
+
+ 
+  * Ennemi 1 - Mecha
+
+ ![Mecha_walk_01](https://user-images.githubusercontent.com/77661930/120357345-a1b24600-c305-11eb-975e-9cf9ee9939b8.png)
+ 
+- Il se déplace horizontalement avec une vitesse donnée
+- A une hitbox
+- A une barre de point de vie (2000pv)
+
+  * Ennemi 2 - Gunman
+  
+  ![Gunman_img_03](https://user-images.githubusercontent.com/77661930/120357405-b393e900-c305-11eb-816d-3a06c301371b.png)
+  
+- Il se déplace horizontalement avec une vitesse donnée
+- A une hitbox
+- A une barre de point de vie (750pv)
+
+  * Ennemi 3 - Cyborg
+
+ ![Cyborg_img_01](https://user-images.githubusercontent.com/77661930/120357477-c9a1a980-c305-11eb-8fbb-8f781f5ccb37.png)
+ 
+- Il se déplace horizontalement avec une vitesse donnée
+- A une hitbox
+- A une barre de point de vie (1250pv)
