@@ -64,11 +64,10 @@
 * joue de la musique aléatoirement
 * fait apparaître de plus en plus d'ennemi tous les 1000 points de scores
 
-  * Schéma des classes
+## Schéma des classes
 
-![Class diagram](https://user-images.githubusercontent.com/77661930/120223792-70247680-c242-11eb-88d6-adf93ba317ae.png)
 
-  * Exemple de classe (Player)
+ ## Exemple de classe (Player)
  
         class Player(AnimatedSprite):
             def __init__(self, folder, pv=1000):
