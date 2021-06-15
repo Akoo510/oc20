@@ -45,7 +45,7 @@
   * une hitbox 
   * lorsqu'il meurt, il fait gagner 100 points de score au joueur
 
-## Projectiles
+## Projectiles
 * Crée un projectile avec :
   * mouvement latéral vers la droite
   * réagit avec la hitbox des ennemis
