@@ -257,33 +257,33 @@ class Game:
         self.z = 0
         self.stopping = False
         #banner
-        self.banner = pygame.image.load('banner.png')
-        self.banner = pygame.transform.scale(self.banner, (500, 200))
+        self.banner = pygame.image.load('banner2.png')
+        self.banner = pygame.transform.scale(self.banner, (700, 550))
         self.banner_rect = self.banner.get_rect()
-        self.banner_rect.x = self.screen.get_width() / 7
-        self.banner_rect.y = self.screen.get_height() / 6
+        self.banner_rect.x = 0
+        self.banner_rect.y = 0
         #button play
         self.play_button = pygame.image.load('play_button.png')
-        self.play_button = pygame.transform.scale(self.play_button, (300, 200))
+        self.play_button = pygame.transform.scale(self.play_button, (100, 40))
         self.play_button_rect = self.play_button.get_rect()
-        self.play_button_rect.x = self.screen.get_width() / 3.5
-        self.play_button_rect.y = self.screen.get_height() / 2
+        self.play_button_rect.x = self.screen.get_width() / 2.45
+        self.play_button_rect.y = self.screen.get_height() / 1.5
         #gameover
-        self.gameover = pygame.image.load('gameover.jpg')
-        self.gameover = pygame.transform.scale(self.gameover, (500, 200))
+        self.gameover = pygame.image.load('Game_over.png')
+        self.gameover = pygame.transform.scale(self.gameover, (700, 550))
         self.gameover_rect = self.gameover.get_rect()
-        self.gameover_rect.x = self.screen.get_width() / 7
-        self.gameover_rect.y = self.screen.get_height() / 6
+        self.gameover_rect.x = 0
+        self.gameover_rect.y = 0
         
         
-#         pygame.mixer.music.load(random.choice(["Ambiant_music/Techno.mp3", "Ambiant_music/Bass.flac", "Ambiant_music/Metalophone.wav", "Ambiant_music/Speed.mp3"]))
-#         pygame.mixer.music.set_volume(0.2)
-#         pygame.mixer.music.play()
+        pygame.mixer.music.load(random.choice(["Ambiant_music/Techno.mp3", "Ambiant_music/Bass.flac", "Ambiant_music/Metalophone.wav", "Ambiant_music/Speed.mp3"]))
+        pygame.mixer.music.set_volume(0.1)
+        pygame.mixer.music.play()
 
         self.background = pygame.image.load("background.png").convert_alpha()
 
-#         self.screen.blit(self.background, (0, 0))
-#         pygame.display.flip()
+        self.screen.blit(self.background, (0, 0))
+        pygame.display.flip()
 
         self.player = Player('Player_img')
 
@@ -335,14 +335,14 @@ class Game:
         running = True
         # running the game loop
         while running:
-            self.screen.blit(self.background, (0, 0))
+#             self.screen.blit(self.background, (0, 0))
             if game.is_playing:
                 game.update(self.screen)
             else:
                 self.screen.blit(self.banner, self.banner_rect)
                 self.screen.blit(self.play_button, self.play_button_rect)
             if game.player.pv <= 900:
-#                 running = False
+                game.is_playing = False
                 self.screen.blit(self.gameover, self.gameover_rect)
             pygame.display.flip()
             for event in pygame.event.get():
