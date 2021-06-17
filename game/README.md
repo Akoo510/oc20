@@ -66,6 +66,7 @@
 
 ## Schéma des classes
 
+![Class diagram](https://user-images.githubusercontent.com/77661893/122423953-9c542d00-cf8e-11eb-8ae3-3a4cd756fc37.png)
 
  ## Exemple de classe (Player)
  
