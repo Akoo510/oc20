@@ -39,22 +39,6 @@ class Text:
         """Draw the text image to the screen."""
         Game.screen.blit(self.image, self.rect)
         
-class Health_bar:
-    """The Health_bar class creates a health bar"""
-    
-    def __init__(self, pos=(0,0)):
-        self.pos = pos
-        
-    def set_pos(self, pos):
-        self.pos = pos
-        self.rect.topleft = pos
-        
-    def set_pv(self, pv):
-        self.pv = pv
-        self.image = 3
-# Tentative barre de vie, à revoir        
-    
-
 
 class AnimatedSprite(pygame.sprite.Sprite):
     """The AnimatedSprite class creates an animated sprite. 
