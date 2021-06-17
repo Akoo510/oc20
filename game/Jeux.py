@@ -37,8 +37,8 @@ class Text:
 
     def draw(self):
         """Draw the text image to the screen."""
-        Game.screen.blit(self.image, self.rect)
-        
+        Game.screen.blit(self.image, self.rect)      
+    
 
 class AnimatedSprite(pygame.sprite.Sprite):
     """The AnimatedSprite class creates an animated sprite. 
@@ -182,6 +182,7 @@ class Bullet(pygame.sprite.Sprite):
     - disappear when hitting an enemy
     """
     fire_sound = pygame.mixer.Sound("Sound_effect/Gunshot_2.mpeg")
+    impact_sound = pygame.mixer.Sound("Sound_effect/Impact")
     bullets = pygame.sprite.Group()
 
     def __init__(self, pos=(100, 300)):
@@ -201,6 +202,7 @@ class Bullet(pygame.sprite.Sprite):
 
         for enemy in Enemy.enemies:
             if self.rect.colliderect(enemy.rect):
+                Bullet.impact_sound.play()
                 Bullet.bullets.remove(self)
                 enemy.pv -= self.damage
                 enemy.label.set_text(str(enemy.pv))
@@ -253,7 +255,7 @@ class Game:
         self.gameover_rect.x = 0
         self.gameover_rect.y = 0
         
-        
+        #music
         pygame.mixer.music.load(random.choice(["Ambiant_music/Techno.mp3", "Ambiant_music/Bass.flac", "Ambiant_music/Metalophone.wav", "Ambiant_music/Speed.mp3"]))
         pygame.mixer.music.set_volume(0.1)
         pygame.mixer.music.play()
