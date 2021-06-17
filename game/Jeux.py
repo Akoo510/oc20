@@ -16,7 +16,7 @@ class Text:
         self.pos = pos
         self.fontname = None
         self.fontsize = 18
-        self.fontcolor = Color('black')
+        self.fontcolor = Color('white')
         self.set_font()
         self.set_text(text)
 
