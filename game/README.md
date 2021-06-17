@@ -94,5 +94,3 @@
                elif event.key == K_f:
                    Bullet.fire_sound.play()
                    Bullet.bullets.add(Bullet(self.rect.center))
-
-WIP
