@@ -244,13 +244,13 @@ class Game:
         self.banner_rect.y = 0
         #button play
         self.play_button = pygame.image.load('play_button.png')
-        self.play_button = pygame.transform.scale(self.play_button, (100, 40))
+        self.play_button = pygame.transform.scale(self.play_button, (int(Game.W/8), int(Game.H/12)))
         self.play_button_rect = self.play_button.get_rect()
-        self.play_button_rect.x = self.screen.get_width() / 2.45
+        self.play_button_rect.x = self.screen.get_width() / 2.2
         self.play_button_rect.y = self.screen.get_height() / 1.5
         #gameover
         self.gameover = pygame.image.load('Game_over.png')
-        self.gameover = pygame.transform.scale(self.gameover, (700, 550))
+        self.gameover = pygame.transform.scale(self.gameover, (Game.W, Game.H))
         self.gameover_rect = self.gameover.get_rect()
         self.gameover_rect.x = 0
         self.gameover_rect.y = 0
@@ -274,12 +274,12 @@ class Game:
         self.label_frame = Text('frame', pos=(10,10))
         self.label_time = Text('time', pos=(10, 30))
         self.label_FPS = Text('FPS', pos=(10, 50))
-        self.label_score = Text('SCORE', pos=(325, 20))
-        self.label_final_score = Text('FINAL SCORE', pos=(300, 300))
-        self.label_quote1 = Text('WAKE UP !', pos=(315, 500))
-        self.label_quote2 = Text('NICE TRY !', pos=(325, 500))
-        self.label_quote3 = Text('WHAT A PERFORMANCE !', pos=(285, 500))
-        self.label_quote4 = Text('YOU\'RE A MONSTER !', pos=(295, 500))
+        self.label_score = Text('SCORE', pos=(int(Game.W/2.2), 20))
+        self.label_final_score = Text('FINAL SCORE', pos=(int(Game.W/2.2), 300))
+        self.label_quote1 = Text('WAKE UP !', pos=(int(Game.W/2.1), Game.H-50))
+        self.label_quote2 = Text('NICE TRY !', pos=(int(Game.W/2.1), Game.H-50))
+        self.label_quote3 = Text('WHAT A PERFORMANCE !', pos=(int(Game.W/2.3),Game.H-50))
+        self.label_quote4 = Text('YOU\'RE A MONSTER !', pos=(int(Game.W/2.2), Game.H-50))
 
         self.t0 = time.time()
     
