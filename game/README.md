@@ -64,7 +64,7 @@
 * joue de la musique aléatoirement
 * fait apparaître de plus en plus d'ennemi tous les 1000 points de scores
 
-## Schéma des classes
+## Diagramme des classes
 
 ![Class diagram](https://user-images.githubusercontent.com/77661893/122423953-9c542d00-cf8e-11eb-8ae3-3a4cd756fc37.png)
 
