@@ -220,8 +220,8 @@ print(Enemy.__doc__)
 print(Bullet.__doc__)
 
 class Game:
-    W = 700
-    H = 550
+    W = 800
+    H = 515
     FPS = 60
     screen = pygame.display.set_mode((W, H))
     frame = 0
@@ -238,7 +238,7 @@ class Game:
         self.stopping = False
         #banner
         self.banner = pygame.image.load('banner.png')
-        self.banner = pygame.transform.scale(self.banner, (700, 550))
+        self.banner = pygame.transform.scale(self.banner, (Game.W, Game.H))
         self.banner_rect = self.banner.get_rect()
         self.banner_rect.x = 0
         self.banner_rect.y = 0
